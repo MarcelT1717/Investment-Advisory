@@ -87,13 +87,13 @@ const Home = () => {
         <div className="container">
           <div className="hero-content-financial hero-content-split">
             <h1 className="hero-title-financial hero-fade-in" style={{ animationDelay: '0.1s' }}>
-              Wealth, Planned
-              <span className="hero-title-highlight">Around Your Life.</span>
+              Invest Where Others
+              <span className="hero-title-highlight">Overlook.</span>
             </h1>
 
             <p className="hero-description-financial hero-fade-in" style={{ animationDelay: '0.2s' }}>
-              Independent, fiduciary-minded guidance on financial planning, portfolio management,
-              and the markets — built around your goals.
+              Independent investment management focused on uncovering overlooked opportunities
+              across small-cap companies, emerging markets, and the sectors shaping tomorrow.
             </p>
           </div>
         </div>
@@ -171,16 +171,16 @@ const Home = () => {
             <div className="firm-copy">
               <div className="about-intro-eyebrow">
                 <Sparkles className="w-4 h-4" />
-                Our Firm
+                Our Research
               </div>
               <h2 className="about-intro-title">
-                Direct Access to Our Research and Thinking
+                Research Beyond the Headlines
               </h2>
               <p className="about-intro-desc">
-                We share in-depth sector research, small-cap insights, cycle analysis, and our
-                evolving market outlook — giving you direct access to our thinking and strategy
-                without any obligation. It's the simplest way to stay informed, aligned, and
-                ahead of emerging opportunities.
+                We look beyond traditional market narratives to uncover opportunities others
+                may overlook. Our research focuses on small-cap companies, emerging markets,
+                evolving industries, and long-term structural trends — giving clients insight
+                into the thinking behind their portfolios.
               </p>
             </div>
             <div className="about-intro-photo firm-photo">
@@ -200,17 +200,17 @@ const Home = () => {
             <div className="firm-copy">
               <div className="about-intro-eyebrow">
                 <Sparkles className="w-4 h-4" />
-                Our Strategy
+                Our Approach
               </div>
               <h2 className="about-intro-title">
-                A Disciplined Approach to Market Cycles
+                Finding Opportunity Where Others Aren't Looking
               </h2>
               <p className="about-intro-desc">
-                Our approach centers on deep sector analysis, identifying emerging industries and
-                capitalizing on market cycles through disciplined rotation and strategic
-                positioning. By combining rigorous fundamental research with macro and thematic
-                awareness, we aim to position ahead of inflection points and capture asymmetric
-                upside while managing risk with conviction and precision.
+                We take a disciplined, research-driven approach to investing, seeking
+                opportunities in underfollowed companies and developing markets. By combining
+                fundamental analysis with an understanding of market cycles and sector trends,
+                we aim to identify compelling opportunities while remaining focused on risk
+                and long-term value.
               </p>
             </div>
           </div>

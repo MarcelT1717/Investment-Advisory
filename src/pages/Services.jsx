@@ -4,34 +4,35 @@ import { CalendarCheck, ArrowRight } from 'lucide-react';
 import { useConsultation } from '../context/ConsultationContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { services } from '../lib/servicesData';
+import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 
 const advantages = [
   {
-    title: 'Extraordinary People',
-    desc: 'We\'re a small, research-first team — no layers between the person doing the work and the person making the call. Everyone covers sectors deeply rather than markets broadly, and brings that depth directly into every position we take.',
+    title: 'Focused Research',
+    desc: 'We concentrate our research where we believe deeper understanding matters most. By following a focused group of sectors and themes, we can study businesses, industries, and opportunities in greater depth.',
   },
   {
-    title: 'Research & Analytics',
-    desc: 'Bottom-up analysis of business models and competitive positioning drives every idea, layered with macro and thematic context to help us stay ahead of inflection points before they\'re consensus.',
+    title: 'Independent Thinking',
+    desc: 'Our investment views are developed through our own research and analysis — not simply market consensus. We evaluate each opportunity on its fundamentals, valuation, competitive position, and long-term potential.',
   },
   {
     title: 'Disciplined Risk Management',
-    desc: 'Conviction is earned through process. We size positions deliberately, manage downside actively, and stay disciplined about exiting a thesis once it\'s played out.',
+    desc: 'Conviction does not eliminate the need for discipline. Position sizing, diversification, changing fundamentals, and portfolio-level exposures are considered throughout the life of every investment.',
   },
 ];
 
 const strategyDetails = [
   {
-    label: '[Research]',
-    desc: '[Placeholder — describe how the research process works, what sources and signals feed into it, and what a typical idea looks like before it becomes a position.]',
+    label: 'Research',
+    desc: 'Investment decisions begin with fundamental research. We evaluate companies, industries, valuations, competitive positioning, and broader market conditions before capital is committed.',
   },
   {
-    label: '[Portfolio Construction]',
-    desc: '[Placeholder — describe how positions are sized, how many are typically held at once, and how the portfolio is built and rebalanced over time.]',
+    label: 'Portfolio Construction',
+    desc: 'Portfolios are built around each client\'s objectives, time horizon, liquidity needs, and tolerance for risk, with investments selected to serve a defined role within the broader strategy.',
   },
   {
-    label: '[Risk Oversight]',
-    desc: '[Placeholder — describe how downside is managed, what triggers a position gets trimmed or exited, and how conviction is reassessed.]',
+    label: 'Risk Oversight',
+    desc: 'Risk is considered throughout the investment process — not only after a position is established. Holdings and portfolio exposures are continually reviewed as fundamentals, valuations, and market conditions change.',
   },
 ];
 
@@ -52,36 +53,34 @@ const Services = () => {
                   Financial planning and portfolio management built around your goals
                 </p>
               </div>
-              <div className="library-hero-photo-wrap">
-                <div
-                  className="library-hero-photo"
-                  style={{ backgroundImage: "url('/images/service-investment-management.jpg')" }}
-                ></div>
-              </div>
+              <HeroParallaxPhoto image="/images/service-investment-management.jpg" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Our Strategy — placeholder editorial write-up, two equal columns:
-          intro copy on the left, a few labeled sub-sections on the right.
-          Content here is intentionally bracketed; real copy pending. */}
+      {/* Our Strategy — two equal columns: intro copy on the left, a few
+          labeled sub-sections on the right. */}
       <section className="container strategy-preview-section" id="strategy">
         <div className="strategy-preview-grid">
           <div className="strategy-preview-intro">
-            <h2 className="section-title strategy-preview-title">Our Strategy</h2>
+            <h2 className="section-title strategy-preview-title">How We Manage Wealth</h2>
             <div className="strategy-preview-copy">
               <p>
-                [Placeholder — an introductory paragraph on our overall investment strategy and
-                philosophy will go here.]
+                Every client begins with a different set of goals, circumstances, and priorities.
+                We build portfolios around those individual needs rather than placing clients
+                into a standardized investment model.
               </p>
               <p>
-                [Placeholder — a second paragraph expanding on how we approach sector selection,
-                timing, and portfolio construction.]
+                Our approach combines long-term portfolio construction with the independent
+                research that defines Standard III. We consider asset allocation, individual
+                investments, market conditions, and opportunities across the areas we follow
+                most closely.
               </p>
               <p>
-                [Placeholder — a third paragraph on how this strategy evolves over time and what
-                discipline means to us in practice.]
+                As circumstances and markets evolve, portfolios evolve with them. We continuously
+                reassess positioning, risk, and the role each investment plays while maintaining
+                a disciplined, long-term perspective.
               </p>
             </div>
           </div>
@@ -108,9 +107,9 @@ const Services = () => {
               style={{ backgroundImage: "url('/images/service-market-research.jpg')" }}
             ></div>
             <h2 className="section-title advantage-title">
-              Our Competitive
+              The Standard III
               <br />
-              <span className="text-accent-primary">Advantage</span>
+              <span className="text-accent-primary">Difference</span>
             </h2>
           </div>
 

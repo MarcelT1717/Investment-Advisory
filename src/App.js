@@ -7,6 +7,8 @@ import Home from "@/pages/Home";
 import Services from "@/pages/Services";
 import ServiceDetail from "@/pages/ServiceDetail";
 import Insights from "@/pages/Insights";
+import BlogLibrary from "@/pages/BlogLibrary";
+import MarketIntelligence from "@/pages/MarketIntelligence";
 import Perspectives from "@/pages/Perspectives";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
@@ -52,6 +54,8 @@ function AppContent() {
           <Route path="/services" element={<Services />} />
           <Route path="/services/:serviceId" element={<ServiceDetail />} />
           <Route path="/insights" element={<Insights />} />
+          <Route path="/insights/library" element={<BlogLibrary />} />
+          <Route path="/insights/market-intelligence" element={<MarketIntelligence />} />
           <Route path="/perspectives" element={<Perspectives />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

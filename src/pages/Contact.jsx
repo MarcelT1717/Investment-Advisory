@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, CalendarCheck, CheckCircle } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 
 const ADVISOR_EMAIL = 'marceltegos@gmail.com';
 
@@ -50,12 +51,7 @@ const Contact = () => {
                   Schedule a no-obligation consultation or reach out directly
                 </p>
               </div>
-              <div className="library-hero-photo-wrap">
-                <div
-                  className="library-hero-photo"
-                  style={{ backgroundImage: "url('/images/service-building.jpg')" }}
-                ></div>
-              </div>
+              <HeroParallaxPhoto image="/images/service-building.jpg" />
             </div>
           </div>
         </div>

@@ -38,7 +38,15 @@ const Header = () => {
       icon: Briefcase,
       children: services.map((s) => ({ path: `/services/${s.id}`, label: s.title })),
     },
-    { path: '/insights', label: 'Learn', icon: BookOpen },
+    {
+      path: '/insights',
+      label: 'Learn',
+      icon: BookOpen,
+      children: [
+        { path: '/insights/library', label: 'Library' },
+        { path: '/insights/market-intelligence', label: 'Market Intelligence' },
+      ],
+    },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -54,9 +62,9 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo - Clickable to Home */}
           <Link to="/" className="flex items-center space-x-3 hover-lift">
-            <div className="mtwa-monogram">GC</div>
-            <span className="h3">
-              Goon <span className="text-accent-primary">Capital</span>
+            <img src="/images/Logo2.png" alt="Standard III" className="brand-logo-img" />
+            <span className="h3 brand-wordmark">
+              Standard <span className="text-accent-primary">III</span>
             </span>
           </Link>
 

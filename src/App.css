@@ -26,6 +26,9 @@
   --brand-navy-dark: rgb(206, 214, 229);
   --brand-gold: rgb(150, 111, 55);
 
+  /* Deep navy ink — used for the wordmark/logo, not the light tints above */
+  --brand-navy-ink: rgb(14, 26, 75);
+
   /* Sentiment Colors */
   --sentiment-positive: rgb(21, 128, 61);
   --sentiment-negative: rgb(220, 38, 38);
@@ -77,21 +80,19 @@
   opacity: 1;
 }
 
-/* Text wordmark monogram badge (used in place of a logo image) */
-.mtwa-monogram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
+/* Logo — the mark itself, no wrapping box/border/background of our own. */
+.brand-logo-img {
   height: 44px;
-  border-radius: 8px;
-  border: 1.5px solid var(--accent-primary);
-  background: var(--accent-bg);
-  color: var(--accent-primary);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  width: auto;
   flex-shrink: 0;
+}
+
+/* Wordmark text set in the same serif as the logo artwork, instead of the
+   site's default sans (.h3/.h4), so "Standard III" reads as one mark with
+   the icon rather than two different typefaces side by side. */
+.brand-wordmark {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
 }
 
 /* Stock Ticker Carousel - Horizontal Scrolling */
@@ -1398,7 +1399,6 @@
   border-color: transparent;
   color: var(--accent-primary);
   font-weight: 600;
-  box-shadow: inset 0 -2px 0 var(--accent-primary);
 }
 
 .header-sticky.header-sticky--light .nav-pill.active:not(.subscribe-pill):hover {
@@ -1436,10 +1436,8 @@ main {
   color: rgb(255, 255, 255);
 }
 
-.header-sticky--transparent .mtwa-monogram {
-  border-color: rgb(198, 170, 131);
-  background: rgba(198, 170, 131, 0.14);
-  color: rgb(198, 170, 131);
+.header-sticky--transparent .brand-logo-img {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
 
 /* Plain minimal text links over the photo, not boxed pills — border/bg
@@ -1464,7 +1462,6 @@ main {
   border-color: transparent;
   color: rgb(198, 170, 131);
   font-weight: 600;
-  box-shadow: inset 0 -2px 0 rgb(198, 170, 131);
 }
 
 /* Solid white pill CTA, matching the reference's "Start a Chat" button */
@@ -2069,8 +2066,8 @@ section {
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1.3fr 0.8fr 1fr 0.9fr;
-  gap: 56px;
+  grid-template-columns: 1.15fr 0.7fr 1.35fr 0.8fr;
+  gap: 48px;
   margin-bottom: 60px;
   padding-bottom: 60px;
   border-bottom: 1px solid var(--border-subtle);
@@ -2097,6 +2094,14 @@ section {
   /* Brand and contact info */
 }
 
+/* .h4 has no color of its own (relies on inheritance), but `color` only
+   inherits the parent's already-computed value rather than re-resolving
+   var(--text-primary) — so it doesn't pick up .dark-band's white
+   override on its own. Same fix pattern as .header-sticky .h3. */
+.footer-brand-section .h4 {
+  color: var(--text-primary);
+}
+
 .footer-links-section {
   /* Quick links column */
 }
@@ -2120,10 +2125,24 @@ section {
   gap: 12px;
 }
 
+/* Multi-column flow rather than a grid — service names vary a lot in
+   length, and a 2-col grid pairs items into rows of mismatched height
+   (a 3-line title next to a 1-line one), leaving uneven gaps down the
+   list. Columns let each entry stack top-to-bottom on its own rhythm. */
 .footer-sectors-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  columns: 2;
+  column-gap: 28px;
+}
+
+.footer-sectors-grid .footer-link {
+  display: block;
+  break-inside: avoid;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.footer-sectors-grid .footer-link:last-child {
+  margin-bottom: 0;
 }
 
 .footer-link {
@@ -2182,7 +2201,7 @@ section {
   }
 
   .footer-sectors-grid {
-    grid-template-columns: repeat(3, 1fr);
+    columns: 3;
   }
 }
 
@@ -2207,9 +2226,9 @@ section {
   }
   
   .footer-sectors-grid {
-    grid-template-columns: repeat(2, 1fr);
+    columns: 2;
   }
-  
+
   .footer-subscribe-bar {
     padding: 24px;
   }
@@ -3040,6 +3059,23 @@ section {
 
 @media (max-width: 640px) {
   .firm-photo-img { min-height: 260px; }
+}
+
+/* Market Lab teaser rows — a pattern/indicator illustration standing in
+   for a photo. .about-intro-photo's dark gradient bg would swallow the
+   illustration's navy/gold lines, so give it a light one instead. */
+.market-lab-photo {
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.market-lab-photo .pattern-illustration-svg {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
 }
 
 @media (max-width: 900px) {
@@ -7040,9 +7076,9 @@ section {
 }
 
 .about-wheel-seg text {
-  font-size: 11px;
+  font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   fill: var(--text-secondary);
   pointer-events: none;
   transition: fill 0.25s ease;
@@ -7089,24 +7125,9 @@ section {
   color: var(--text-secondary);
 }
 
-.about-wheel-label {
-  position: absolute;
-  font-size: 12.5px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-primary);
-  white-space: nowrap;
-}
-
-.about-wheel-label--tr { top: 16%; left: 100%; margin-left: -30px; }
-.about-wheel-label--br { top: 76%; left: 100%; margin-left: -30px; }
-.about-wheel-label--bl { top: 76%; right: 100%; margin-right: -30px; }
-
 @media (max-width: 1100px) {
   .about-values-grid { grid-template-columns: 1fr; }
   .about-values-photo { min-height: 320px; }
-  .about-wheel-label { position: static; display: inline-block; margin: 0 12px 8px 0; }
 }
 
 @media (max-width: 700px) {
@@ -7185,6 +7206,15 @@ section {
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.about-leader-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
 }
 
 .about-leader-name {
@@ -7650,6 +7680,690 @@ section {
   .about-right-col { position: static; }
 }
 
+
+/* ============================================================
+   SERVICE DETAIL PAGE — highlights grid, process timeline, FAQ
+   ============================================================ */
+
+.sd-section-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.sd-section-intro {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-bottom: 44px;
+}
+
+/* What's Included — reuses .about-info-card / .about-card-icon etc. */
+.sd-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .sd-highlights-grid { grid-template-columns: 1fr; }
+}
+
+/* How We Work Together — numbered step timeline with a connecting rail */
+.sd-process {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  position: relative;
+}
+
+.sd-process::before {
+  content: '';
+  position: absolute;
+  top: 23px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border-subtle);
+  z-index: 0;
+}
+
+@media (max-width: 900px) {
+  .sd-process { grid-template-columns: 1fr; gap: 36px; }
+  .sd-process::before { display: none; }
+}
+
+.sd-process-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sd-process-num {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 1.5px solid var(--accent-primary);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 18px;
+}
+
+.sd-process-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sd-process-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* Two-column layout: sticky "Is This Right for You" CTA + FAQ accordion */
+.sd-columns {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .sd-columns { grid-template-columns: 1fr; }
+}
+
+.sd-cta-sticky {
+  position: sticky;
+  top: 110px;
+}
+
+/* ============================================================
+   ACADEMY — hub cards on the Learn page, plus the Chart Patterns
+   and Technical Indicators gallery pages it links out to
+   ============================================================ */
+
+.academy-section {
+  padding: 96px 0;
+}
+
+.academy-intro {
+  max-width: 640px;
+  margin-bottom: 44px;
+}
+
+.academy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .academy-grid { grid-template-columns: 1fr; }
+}
+
+.academy-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 28px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  text-align: left;
+}
+
+.academy-card:hover {
+  border-color: var(--brand-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.academy-card--disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.academy-card--disabled:hover {
+  transform: none;
+  border-color: var(--border-subtle);
+  box-shadow: none;
+}
+
+.academy-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--accent-bg);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.academy-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.academy-card-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.academy-card-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.academy-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.academy-card-count {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.academy-card--disabled .academy-card-count {
+  color: var(--text-muted);
+}
+
+.academy-card-arrow {
+  color: var(--accent-primary);
+  transition: transform 0.2s ease;
+}
+
+.academy-card:hover .academy-card-arrow {
+  transform: translateX(3px);
+}
+
+/* Shared small pill tags — pattern "type", difficulty, indicator category */
+.academy-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 11px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.academy-tag--neutral { background: var(--accent-bg); color: var(--accent-primary); }
+.academy-tag--beginner { background: rgba(21, 128, 61, 0.1); color: var(--sentiment-positive); }
+.academy-tag--intermediate { background: var(--accent-bg); color: var(--accent-primary); }
+.academy-tag--advanced { background: rgba(220, 38, 38, 0.1); color: var(--sentiment-negative); }
+
+/* Filter tabs — used on both the Chart Patterns and Technical Indicators pages */
+.academy-filter-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.academy-filter-tab {
+  padding: 10px 20px;
+  border-radius: 24px;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.academy-filter-tab:hover {
+  border-color: var(--brand-gold);
+  color: var(--text-primary);
+}
+
+.academy-filter-tab.is-active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+/* Chart Patterns gallery — placeholder visual slot stands in for real
+   illustrations until those are produced. */
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1000px) { .pattern-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .pattern-grid { grid-template-columns: 1fr; } }
+
+.pattern-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.pattern-card:hover {
+  border-color: var(--brand-gold);
+  transform: translateY(-3px);
+}
+
+.pattern-card-visual {
+  height: 150px;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--bg-tertiary), var(--bg-tertiary) 10px,
+    var(--bg-secondary) 10px, var(--bg-secondary) 20px
+  );
+  border-bottom: 1px dashed var(--border-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+}
+
+.pattern-card-visual span {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pattern-card-body {
+  padding: 20px 22px;
+}
+
+.pattern-card-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.pattern-card-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Compact hero variant — no breakout photo, so drop the padding reserved
+   for it (see .library-hero-photo's negative bottom offset). */
+.library-hero--compact {
+  padding-bottom: 56px;
+}
+
+/* ============================================================
+   BLOG CAROUSEL — two auto-scrolling rows drifting in opposite
+   directions, each looping seamlessly (track content is duplicated,
+   animated to translateX(-50%)).
+   ============================================================ */
+.blog-carousel-section {
+  padding: 24px 0 72px;
+}
+
+.blog-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.blog-carousel-row {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.blog-carousel-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  animation: blog-marquee-left 52s linear infinite;
+}
+
+.blog-carousel-track--right {
+  animation-name: blog-marquee-right;
+  animation-duration: 64s;
+}
+
+.blog-carousel-row:hover .blog-carousel-track {
+  animation-play-state: paused;
+}
+
+@keyframes blog-marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes blog-marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-carousel-track { animation: none; }
+}
+
+.blog-carousel-card {
+  flex: 0 0 340px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.blog-carousel-card-image {
+  height: 190px;
+  background-size: cover;
+  background-position: center;
+}
+
+.blog-carousel-card-body {
+  padding: 22px 24px 24px;
+}
+
+.blog-carousel-card-category {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  background: var(--accent-bg);
+  padding: 4px 11px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.blog-carousel-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-carousel-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.blog-carousel-card-meta-dot {
+  opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+  .blog-carousel-card { flex-basis: 280px; }
+  .blog-carousel-card-image { height: 160px; }
+}
+
+/* Chart Patterns — sidebar + detail-panel layout, no sub-pages. Clicking a
+   sidebar item swaps the right-hand panel's content in place. */
+.academy-layout-section {
+  padding: 56px 0 96px;
+}
+
+.academy-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .academy-layout { grid-template-columns: 1fr; }
+}
+
+.academy-sidebar {
+  position: sticky;
+  top: 110px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+@media (max-width: 900px) {
+  .academy-sidebar { position: static; max-height: none; }
+}
+
+.academy-sidebar-group + .academy-sidebar-group {
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Top level of the sidebar tree — one per Academy category (Chart
+   Patterns, Technical Indicators, ...). Sub-groups (pattern type /
+   indicator category) and leaf items nest inside using the classes below. */
+.academy-sidebar-category + .academy-sidebar-category {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.academy-sidebar-category-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.academy-sidebar-category-header:hover {
+  color: var(--accent-primary);
+}
+
+.academy-sidebar-category-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--accent-bg);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.academy-sidebar-category-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.academy-sidebar-category-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.academy-sidebar-category--locked .academy-sidebar-category-header {
+  cursor: default;
+}
+
+.academy-sidebar-category--locked .academy-sidebar-category-header:hover {
+  color: var(--text-primary);
+}
+
+.academy-sidebar-category--locked .academy-sidebar-category-icon {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+
+.academy-sidebar-category-body {
+  padding-bottom: 4px;
+}
+
+.academy-sidebar-group-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.academy-sidebar-group-header:hover {
+  color: var(--text-primary);
+}
+
+.academy-sidebar-chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.academy-sidebar-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.academy-sidebar-group-list {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.academy-sidebar-group-list.is-open {
+  grid-template-rows: 1fr;
+}
+
+.academy-sidebar-group-list-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.academy-sidebar-item {
+  display: block;
+  width: 100%;
+  padding: 11px 18px 11px 30px;
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  text-align: left;
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.academy-sidebar-item:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.academy-sidebar-item.is-active {
+  background: var(--accent-bg);
+  border-left-color: var(--accent-primary);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.academy-sidebar-group-list-inner .academy-sidebar-item:last-child {
+  padding-bottom: 16px;
+}
+
+/* Detail panel */
+.academy-detail-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  animation: fadeInUp 0.35s ease both;
+}
+
+.pattern-illustration-frame {
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.pattern-illustration-svg {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
+.academy-detail-body {
+  padding: 32px 36px 36px;
+}
+
+.academy-detail-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 30px);
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.academy-detail-desc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 640px;
+}
+
+/* Technical Indicators grid — reuses .about-info-card for the card shell */
+.indicator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) { .indicator-grid { grid-template-columns: 1fr; } }
+
+.indicator-card-tag-row {
+  margin-bottom: 14px;
+}
 
 /* ============================================================
    SECTOR CARDS — badge, name-row, footer additions

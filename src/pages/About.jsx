@@ -1,22 +1,26 @@
 import React from 'react';
 import { Quote, User, ChevronDown } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 
 const leadership = [
   {
-    name: '[Team Member Name]',
+    name: 'Justin Tambunan',
     title: '[Title / Role]',
     bio: '[A short professional biography — background, focus area, and experience will go here.]',
+    photo: '/images/leader-justin-tambunan.png',
   },
   {
-    name: '[Team Member Name]',
+    name: 'Charles Frantz',
     title: '[Title / Role]',
     bio: '[A short professional biography — background, focus area, and experience will go here.]',
+    photo: '/images/leader-charles-frantz.png',
   },
   {
-    name: '[Team Member Name]',
+    name: 'Marcel Tegos',
     title: '[Title / Role]',
     bio: '[A short professional biography — background, focus area, and experience will go here.]',
+    photo: '/images/leader-marcel-tegos.png',
   },
 ];
 
@@ -29,94 +33,99 @@ const sectionNav = [
 
 const values = [
   {
-    name: 'Intellectual Honesty',
-    desc: 'We follow the research where it leads, state our assumptions plainly, and change our minds when the evidence changes.',
+    name: 'Independent Thinking',
+    desc: 'We form our own views through research rather than relying solely on market consensus.',
   },
   {
     name: 'Discipline',
-    desc: 'Conviction is earned through process. We size deliberately, manage downside actively, and avoid drifting from our thesis.',
+    desc: 'We remain patient and selective, investing when the research supports the opportunity.',
   },
   {
-    name: 'Sector Depth',
-    desc: 'We would rather know a handful of sectors deeply than track everything shallowly. Depth is where the edge lives.',
+    name: 'Depth',
+    desc: 'We believe knowing fewer areas exceptionally well is more valuable than following everything superficially.',
   },
   {
     name: 'Transparency',
-    desc: 'We share our thinking as it develops — the reasoning behind a position, not just the position itself.',
+    desc: 'Clients should understand how their capital is invested and the thinking behind important decisions.',
   },
   {
     name: 'Partnership',
-    desc: 'We build long-term relationships through open communication and alignment of incentives, with no obligation to get started.',
+    desc: 'We build long-term relationships around communication, alignment, and an understanding of each client\'s objectives.',
   },
   {
     name: 'Curiosity',
-    desc: 'Emerging industries reward those who stay early and keep asking questions. We track inflection points before they are consensus.',
+    desc: 'Markets evolve constantly. We continue questioning assumptions, studying new developments, and looking for what others may be overlooking.',
   },
 ];
 
 const approachBullets = [
-  { bold: 'Research-driven investment process', rest: ' that pairs fundamental analysis with sector and macro context' },
-  { bold: 'Flexible positioning', rest: ' designed to capture opportunities across market cycles and rotations' },
-  { bold: 'Deep expertise across five sectors', rest: ' where inefficiency and growth potential are highest' },
-  { bold: 'Conviction paired with active risk control', rest: ' throughout the life of every position' },
+  { bold: 'Research-driven investment process', rest: ' combining fundamental analysis with sector, thematic, and macroeconomic research.' },
+  { bold: 'Focused on emerging industries', rest: ' where technological change, capital investment, and structural growth are creating new opportunities.' },
+  { bold: 'Small-cap emphasis', rest: ' seeking underfollowed companies positioned within long-term growth markets.' },
+  { bold: 'Disciplined selection', rest: ' balancing conviction and growth potential with valuation and active risk management.' },
 ];
 
 const approachSegments = [
-  { name: 'Quantum Computing', group: 'Emerging Compute', desc: 'Revolutionary computing power enabling breakthroughs in cryptography, drug discovery, and complex optimization.' },
-  { name: 'Space Technology', group: 'Emerging Compute', desc: 'Commercial space exploration, satellite internet, and lunar infrastructure reshaping global connectivity.' },
-  { name: 'Robotics & AI', group: 'Automation', desc: 'Advanced robotics and AI transforming manufacturing, healthcare, and everyday automation at scale.' },
-  { name: 'Defense Tech', group: 'Automation', desc: 'Next-generation defense systems, autonomous platforms, and AI-powered surveillance reshaping national security.' },
-  { name: 'Clean Energy', group: 'Energy Transition', desc: 'Solar, wind, and battery storage innovations driving the global transition away from fossil fuels.' },
-  { name: 'Grid & Storage', group: 'Energy Transition', desc: 'Transmission, storage, and grid-scale infrastructure required to make the energy transition work.' },
+  { name: 'Aviation & Drones', desc: 'Advanced aviation, autonomous aircraft, drones, and next-generation mobility.' },
+  { name: 'Quantum Computing', desc: 'Quantum hardware, enabling technologies, and the emerging computing ecosystem.' },
+  { name: 'Robotics & Automation', desc: 'Industrial automation, autonomous systems, robotics, and intelligent machines.' },
+  { name: 'Space & Defense', desc: 'Launch, satellites, space infrastructure, defense technology, and national-security applications.' },
+  { name: 'Energy, Batteries & Minerals', desc: 'Energy infrastructure, battery technology, storage, critical minerals, and the resources powering electrification.' },
+  { name: 'AI & Data Centers', desc: 'Artificial intelligence, semiconductors, computing infrastructure, data centers, and supporting power demand.' },
+  { name: 'Healthcare & Biotech', desc: 'Innovative healthcare companies, medical technologies, biotechnology, and emerging treatments.' },
+  { name: 'Digital Assets & Finance', desc: 'Financial technology, digital assets, blockchain infrastructure, exchanges, and the evolution of financial markets.' },
 ];
 
 const audiences = [
   {
-    segment: '[Audience Segment One]',
-    statement: '[A bold one- or two-line statement about who this group is.]',
-    desc: '[A short paragraph describing this audience, what they need, and why our approach fits them. Replace with real copy once finalized.]',
+    segment: '01 — Investment Management',
+    statement: 'Portfolios Built With Purpose.',
+    desc: 'We build and manage portfolios around each client\'s objectives, time horizon, and risk profile — combining personalized wealth management with our independent investment research.',
     approach: [
-      { title: '[Approach point one]', desc: '[How we work with this audience — process, focus, or philosophy.]' },
-      { title: '[Approach point two]', desc: '[A second dimension of how we serve this audience.]' },
+      { title: 'Personalized Portfolio Construction', desc: 'Asset allocation and investment selection are tailored to the individual rather than built around a one-size-fits-all model.' },
+      { title: 'Active Research & Oversight', desc: 'We continually evaluate holdings, market conditions, and new opportunities as the investment landscape evolves.' },
     ],
+    whoWeServeLabel: 'What We Manage',
     whoWeServe: [
-      { title: '[Who we serve — detail one]', desc: '[A more specific slice of this audience and their situation.]' },
-      { title: '[Who we serve — detail two]', desc: '[Another specific slice of this audience and their situation.]' },
+      { title: 'Individuals & Families', desc: 'Individual, joint, retirement, trust, and custodial investment accounts.' },
+      { title: 'Businesses & Entities', desc: 'Investment management for businesses, partnerships, trusts, and other entities.' },
     ],
   },
   {
-    segment: '[Audience Segment Two]',
-    statement: '[A bold one- or two-line statement about who this second group is.]',
-    desc: '[A short paragraph describing this audience, what they need, and why our approach fits them. Replace with real copy once finalized.]',
+    segment: '02 — Our Investment Focus',
+    statement: 'Looking Where the Market Looks Less.',
+    desc: 'We dedicate much of our research to areas where less coverage, earlier-stage growth, and structural change may create compelling long-term investment opportunities.',
     approach: [
-      { title: '[Approach point one]', desc: '[How we work with this audience — process, focus, or philosophy.]' },
-      { title: '[Approach point two]', desc: '[A second dimension of how we serve this audience.]' },
+      { title: 'Small-Cap Companies', desc: 'We research businesses earlier in their growth cycle, where greater market inefficiencies may create opportunities for differentiated investment ideas.' },
+      { title: 'Emerging Markets', desc: 'We study developing economies, industries, and companies positioned to benefit from long-term shifts in global growth.' },
     ],
+    whoWeServeLabel: 'Where We Look',
     whoWeServe: [
-      { title: '[Who we serve — detail one]', desc: '[A more specific slice of this audience and their situation.]' },
-      { title: '[Who we serve — detail two]', desc: '[Another specific slice of this audience and their situation.]' },
+      { title: 'Five Core Sectors', desc: 'Focused research allows us to develop deeper knowledge of the industries and businesses we follow.' },
+      { title: 'Emerging Industries & Themes', desc: 'We monitor technological, economic, and demographic changes that may reshape industries over time.' },
     ],
   },
   {
-    segment: '[Audience Segment Three]',
-    statement: '[A bold one- or two-line statement about who this third group is.]',
-    desc: '[A short paragraph describing this audience, what they need, and why our approach fits them. Replace with real copy once finalized.]',
+    segment: '03 — Research & Intelligence',
+    statement: 'Know What You Own — and Why.',
+    desc: 'Research is at the center of our investment process. Clients gain insight into the analysis, market views, and thinking that inform our portfolio decisions.',
     approach: [
-      { title: '[Approach point one]', desc: '[How we work with this audience — process, focus, or philosophy.]' },
-      { title: '[Approach point two]', desc: '[A second dimension of how we serve this audience.]' },
+      { title: 'Fundamental Research', desc: 'We evaluate businesses, industries, financials, competitive positioning, and long-term growth drivers before forming an investment view.' },
+      { title: 'Market & Cycle Analysis', desc: 'We consider valuations, market cycles, sector dynamics, and the broader economic environment alongside company-level research.' },
     ],
+    whoWeServeLabel: 'What Clients Receive',
     whoWeServe: [
-      { title: '[Who we serve — detail one]', desc: '[A more specific slice of this audience and their situation.]' },
-      { title: '[Who we serve — detail two]', desc: '[Another specific slice of this audience and their situation.]' },
+      { title: 'Investment Research', desc: 'Access to selected company, sector, and thematic research produced by Standard III.' },
+      { title: 'Market Updates', desc: 'Regular commentary on markets, portfolio themes, and developments we believe are worth watching.' },
     ],
   },
 ];
 
 const overviewStats = [
-  { value: '5', label: 'Sectors we track closely' },
-  { value: '[Est. 20XX]', label: '[Year the firm was founded]' },
-  { value: '[XX]', label: '[Positions currently held]' },
-  { value: '0', label: 'Obligation to get started' },
+  { value: '2025', label: 'Founded' },
+  { value: '5', label: 'Sectors We Follow Closely' },
+  { value: '2', label: 'Core Investment Focuses — Small Caps & Emerging Markets' },
+  { value: '1', label: 'Standard — Research Before Investment' },
 ];
 
 // Annular-sector path helper for the approach wheel
@@ -163,16 +172,13 @@ const About = () => {
                 <div className="library-hero-breadcrumb">Who We Are / About Us</div>
                 <h1 className="library-hero-title">About Us</h1>
                 <p className="library-hero-subtitle">
-                  A research-driven finance group focused on uncovering high-growth opportunities
-                  in small-cap stocks, combining deep sector analysis with disciplined risk management.
+                  Our approach combines personalized wealth management with independent
+                  investment research. We take the time to understand each client's objectives
+                  while looking beyond conventional portfolios to identify opportunities across
+                  small-cap companies, emerging markets, and evolving industries.
                 </p>
               </div>
-              <div className="library-hero-photo-wrap">
-                <div
-                  className="library-hero-photo"
-                  style={{ backgroundImage: "url('/images/collage-chicago-sunset.jpg')" }}
-                ></div>
-              </div>
+              <HeroParallaxPhoto image="/images/collage-chicago-sunset.jpg" />
             </div>
           </div>
         </div>
@@ -191,22 +197,25 @@ const About = () => {
 
       {/* Overview — copy on the left, stat grid on the right */}
       <section className="container about-overview-section" id="overview">
-        <h2 className="section-title about-overview-title">Research-driven. Sector focused.</h2>
+        <h2 className="section-title about-overview-title">Our Standard.</h2>
         <div className="about-overview-grid">
           <div className="about-overview-copy">
             <p>
-              Our approach centers on deep sector analysis, identifying emerging industries and
-              capitalizing on market cycles through disciplined rotation and strategic positioning.
-              By combining rigorous fundamental research with macro and thematic awareness, we aim
-              to position ahead of inflection points and capture asymmetric upside while managing
-              risk with conviction and precision.
+              Our investment philosophy is rooted in independent research and the belief that
+              compelling opportunities are often found beyond the market's largest and most
+              widely followed companies. We focus on understanding businesses, industries, and
+              the forces shaping their long-term growth.
             </p>
             <p>
-              Established giants like NVIDIA and Meta Platforms are exceptional businesses — but
-              much of their early hyper-growth is already behind them. Small caps offer exposure
-              to companies earlier in their growth cycle, where inefficiencies create the
-              potential for outsized returns. That's why our focus stays on deep research, sector
-              understanding, and disciplined selection.
+              Small-cap companies and emerging markets are central to that approach. These areas
+              can provide exposure to businesses and economies earlier in their development,
+              where less analyst coverage and greater market inefficiencies may create attractive
+              opportunities. We combine this focus with disciplined fundamental research, sector
+              analysis, and thoughtful portfolio construction.
+            </p>
+            <p>
+              Rather than following short-term market narratives, we seek to understand where
+              capital, innovation, and economic growth may be heading next.
             </p>
           </div>
 
@@ -219,7 +228,6 @@ const About = () => {
             ))}
           </div>
         </div>
-        <p className="about-overview-note">[Note: figures to be updated as of the latest quarter.]</p>
       </section>
 
       {/* Our Values — intro copy + interactive value list, photo on the right */}
@@ -227,14 +235,15 @@ const About = () => {
         <div className="container about-values-grid">
           <div className="about-values-copy">
             <p className="about-values-lead">
-              We are a research-driven finance group built around a simple idea: depth in a few
-              sectors beats breadth across all of them.
+              We believe better investment decisions begin with deeper understanding — not
+              broader coverage.
             </p>
             <p className="about-values-sub">
-              Our work centers on small-cap companies earlier in their growth cycle, where
-              inefficiencies create the potential for outsized returns. We combine rigorous
-              fundamental research with macro and thematic awareness to position ahead of
-              inflection points, while managing downside with conviction and precision.
+              Standard III is built around focused research, independent thinking, and long-term
+              relationships. Rather than trying to follow every corner of the market, we
+              concentrate our attention where we believe our research can matter most —
+              particularly across small-cap companies, emerging markets, and select industries
+              undergoing meaningful change.
             </p>
 
             <h2 className="section-title about-values-title">Our Values</h2>
@@ -289,7 +298,7 @@ const About = () => {
 
                 <hr className="about-audience-detail-divider" />
 
-                <h2 className="about-audience-detail-title">Who We Serve</h2>
+                <h2 className="about-audience-detail-title">{a.whoWeServeLabel}</h2>
                 {a.whoWeServe.map((item) => (
                   <div className="about-audience-detail-item" key={item.title}>
                     <h4>{item.title}</h4>
@@ -326,9 +335,9 @@ const About = () => {
             x-excluded="true"
           >
             {approachSegments.map((seg, i) => {
-              const start = i * 60;
-              const end = start + 60;
-              const mid = start + 30;
+              const start = i * 45;
+              const end = start + 45;
+              const mid = start + 22.5;
               const labelPos = polar(230, 230, 152, mid);
               // Radial text reads upside down between 90° and 270°
               const flip = mid > 90 && mid < 270;
@@ -373,10 +382,6 @@ const About = () => {
               </div>
             </foreignObject>
           </svg>
-
-          <span className="about-wheel-label about-wheel-label--tr">Emerging Compute</span>
-          <span className="about-wheel-label about-wheel-label--br">Automation</span>
-          <span className="about-wheel-label about-wheel-label--bl">Energy Transition</span>
         </div>
       </section>
 
@@ -389,7 +394,11 @@ const About = () => {
             return (
               <div key={i} className="about-leader-card reveal-stagger" style={{ '--reveal-i': i }}>
                 <div className="about-leader-photo">
-                  <User className="w-8 h-8" />
+                  {member.photo ? (
+                    <img src={member.photo} alt={member.name} className="about-leader-photo-img" />
+                  ) : (
+                    <User className="w-8 h-8" />
+                  )}
                 </div>
                 <h3 className="about-leader-name">{member.name}</h3>
                 <p className="about-leader-title">{member.title}</p>
