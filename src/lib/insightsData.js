@@ -1,4 +1,6 @@
 // Sample commentary — replace with your own posts as you publish them.
+// Add an optional `fileUrl` (e.g. '/reports/2026-q3-outlook.pdf') to any entry
+// to make its card open that file in a new tab instead of doing nothing.
 export const insights = [
   {
     id: 1,
@@ -59,5 +61,16 @@ export const insights = [
     date: '2026-05-01',
     readTime: '3 min read',
     image: '/images/service-family-office.jpg',
+  },
+  {
+    id: 7,
+    title: 'eVTOL Sector Analysis',
+    description:
+      'A look at the electric vertical takeoff and landing (eVTOL) sector — the companies, technology, and market dynamics shaping this emerging space.',
+    category: 'Market Commentary',
+    date: '2026-09-15',
+    readTime: '5 min read',
+    image: '/images/service-stock-research.jpg',
+    fileUrl: '/EVTOL Sector Analysis.pdf',
   },
 ];

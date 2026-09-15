@@ -1,7 +1,7 @@
 import {
-  BarChart3, PiggyBank, Shield, Baby, Briefcase, Users, Newspaper,
-  LineChart, ShieldCheck, Percent, GraduationCap, ScrollText, Landmark,
-  Building2, FileSpreadsheet, Heart, HandCoins, Network,
+  PiggyBank, Shield, Baby, Briefcase, Newspaper,
+  ShieldCheck, GraduationCap, ScrollText, Landmark,
+  Building2, FileSpreadsheet, Heart, HandCoins,
   TrendingUp, BellRing, BookOpen, School, PiggyBank as PiggyBankIcon,
 } from 'lucide-react';
 
@@ -21,7 +21,9 @@ export const services = [
     icon: Briefcase,
     title: 'Business & Entity Accounts',
     desc: 'Investment solutions for businesses, partnerships, trusts, and other entities.',
-    image: '/images/service-business-owner.jpg',
+    image: '/images/service-business-entity-accounts.jpg',
+    storyTitle: 'Built for the way your business actually works.',
+    story: 'Standard III was founded on the idea that businesses deserve the same research-driven attention as individual investors — not an afterthought bolted onto a personal account. We manage cash, reserves, and retirement plans at the entity level with the same independent research and discipline that defines every portfolio we build, drawing on firsthand experience running a small business ourselves.',
     highlights: [
       { icon: Building2, title: 'Corporate Investment Accounts', desc: 'Investment management for cash and reserves held at the entity level.' },
       { icon: FileSpreadsheet, title: 'SEP, SIMPLE & Solo 401(k)', desc: 'Retirement plan setup and management sized to your business structure and headcount.' },
@@ -39,6 +41,8 @@ export const services = [
     title: 'Custodial Accounts',
     desc: 'Investment management for UGMA and UTMA accounts established for minors.',
     image: '/images/service-custodial.jpg',
+    storyTitle: 'A head start, built to last.',
+    story: 'Every custodial account we manage starts with a simple question: what will this money need to do, and when? That long runway lets us invest with a patience most accounts don\'t have — pairing our independent research with a strategy built to grow alongside the child it\'s meant for, from the first deposit to the day they take the reins.',
     highlights: [
       { icon: Baby, title: 'UGMA / UTMA Accounts', desc: 'Custodial accounts set up and managed on behalf of a minor, structured around when they\'ll need the funds.' },
       { icon: GraduationCap, title: 'Growth-Oriented Planning', desc: 'A strategy that can flex toward education costs or simply toward giving them a head start.' },
@@ -55,7 +59,9 @@ export const services = [
     icon: School,
     title: 'Education Planning',
     desc: 'Investment strategies designed to help families prepare for future education expenses.',
-    image: '/images/collage-chicago-detail.jpg',
+    image: '/images/service-education-planning.webp',
+    storyTitle: 'Planning that keeps pace with the timeline.',
+    story: 'Education costs move on their own schedule, and we build around it. Standard III combines goal-based investing with a glide path that grows more conservative as tuition bills approach — so families can plan with confidence years before the first check is due, backed by the same research process behind every account we manage.',
     highlights: [
       { icon: GraduationCap, title: 'Goal-Based Investing', desc: 'A strategy built around when the funds will actually be needed, from early childhood through college.' },
       { icon: PiggyBankIcon, title: 'Tax-Aware Account Options', desc: 'Guidance on the account types available for education savings and how they fit alongside your other goals.' },
@@ -68,45 +74,13 @@ export const services = [
     ],
   },
   {
-    id: 'family-office',
-    icon: Users,
-    title: 'Family Office',
-    desc: 'Coordinated investment oversight for families with more complex financial needs.',
-    image: '/images/service-family-office.jpg',
-    highlights: [
-      { icon: Network, title: 'One Coordinated View', desc: 'Every account across the family managed against one strategy instead of in isolation.' },
-      { icon: Users, title: 'Multi-Generational Coordination', desc: 'Planning that accounts for how wealth moves between generations, not just how it grows today.' },
-      { icon: Landmark, title: 'Aligned With Your Advisors', desc: 'Coordinated alongside your attorneys, accountants, and other advisors so nothing works at cross purposes.' },
-    ],
-    faqs: [
-      { q: 'How many accounts can you manage together?', a: '[Placeholder — describe the scope of accounts and family members typically coordinated under this service.]' },
-      { q: 'How is family office service priced?', a: '[Placeholder — describe the fee structure for coordinated family accounts.]' },
-      { q: 'Can you coordinate with our other advisors?', a: 'Yes — this service is built around coordination. We work alongside your attorneys, accountants, and any other advisors already in place.' },
-    ],
-  },
-  {
-    id: 'investment-management',
-    icon: BarChart3,
-    title: 'Investment Management',
-    desc: 'Personalized portfolios designed around your goals, risk tolerance, and long-term objectives.',
-    image: '/images/service-investment-management.jpg',
-    highlights: [
-      { icon: LineChart, title: 'Personalized Portfolio Design', desc: 'A portfolio built around your goals, time horizon, and risk tolerance — not a model that fits everyone.' },
-      { icon: Percent, title: 'Tax-Aware Management', desc: 'Ongoing attention to asset location, harvesting, and account placement to help improve after-tax returns.' },
-      { icon: Users, title: 'Individual & Joint Accounts', desc: 'Coordinated management across accounts held solely or jointly, so the full picture stays aligned.' },
-    ],
-    faqs: [
-      { q: 'How is my portfolio actually built?', a: 'We start with your goals, time horizon, and comfort with risk, then construct a portfolio designed around them — combining sector research with disciplined position sizing rather than a one-size-fits-all model.' },
-      { q: 'How often will my portfolio be reviewed?', a: '[Placeholder — describe the standing review cadence and what triggers an off-cycle check-in.]' },
-      { q: 'What does this service cost?', a: '[Placeholder — describe the fee structure for this service.]' },
-    ],
-  },
-  {
     id: 'market-research',
     icon: Newspaper,
     title: 'Market Research',
     desc: 'Ongoing market commentary, investment research, and insights from our team.',
     image: '/images/service-market-research.jpg',
+    storyTitle: 'Research you can actually use.',
+    story: 'Markets move fast, and most commentary arrives too late to matter. Standard III\'s research combines bottom-up company work with macro and thematic context, delivered directly and without the noise — aimed at flagging emerging themes and cycle shifts before they become consensus, not repeating what everyone already knows.',
     highlights: [
       { icon: Newspaper, title: 'Weekly Market Commentary', desc: 'Regular, no-fluff updates on the market conditions and sector moves shaping your portfolio.' },
       { icon: BookOpen, title: 'Sector & Macro Research', desc: 'Bottom-up company research paired with macro and thematic context, shared directly with you.' },
@@ -124,6 +98,8 @@ export const services = [
     title: 'Retirement Planning',
     desc: 'Investment strategies for building, managing, and transitioning wealth throughout retirement.',
     image: '/images/service-retirement.jpg',
+    storyTitle: 'A plan for every stage of retirement.',
+    story: 'Retirement isn\'t one decision — it\'s a sequence of them, from the first dollar saved to the last one spent. Standard III builds an accumulation strategy sized to your time horizon, then transitions it into a disciplined withdrawal plan designed to make the money last and manage the tax impact along the way, across every account type you hold.',
     highlights: [
       { icon: PiggyBank, title: 'Every Account Type', desc: 'Traditional, Roth, SEP, and rollover IRAs — structured around how you plan to use the money later.' },
       { icon: TrendingUp, title: 'Accumulation Strategy', desc: 'A growth-oriented plan while you\'re still building your nest egg, sized to your time horizon.' },
@@ -141,6 +117,8 @@ export const services = [
     title: 'Trust & Estate Planning',
     desc: 'Portfolio coordination designed to complement your broader estate and legacy plans.',
     image: '/images/service-trust-estate.jpg',
+    storyTitle: 'Investment management built to outlast you.',
+    story: 'A trust is only as strong as the strategy managing it. Standard III provides disciplined, ongoing management of trust assets consistent with the trust\'s own terms, working directly alongside your estate attorney so the investment side of the plan stays aligned with the legal one — built for preserving and transferring wealth across generations, not just growing it.',
     highlights: [
       { icon: ShieldCheck, title: 'Trust Asset Management', desc: 'Ongoing, disciplined management of assets held in trust, consistent with the trust\'s terms and objectives.' },
       { icon: ScrollText, title: 'Attorney Coordination', desc: 'We work directly alongside your estate attorney so investment decisions and estate documents stay aligned.' },

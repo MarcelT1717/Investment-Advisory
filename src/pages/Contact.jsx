@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, CalendarCheck, CheckCircle } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 
-const ADVISOR_EMAIL = 'marceltegos@gmail.com';
+const ADVISOR_EMAIL = 'consultation@standardthreewealth.com';
 
 const Contact = () => {
   const [contentRef, contentVisible] = useScrollReveal();
@@ -42,6 +42,8 @@ const Contact = () => {
     <div className="min-h-screen">
       <section className="library-hero">
         <div className="library-hero-block">
+          <div className="library-hero-edge"></div>
+          <div className="library-hero-bg"></div>
           <div className="container">
             <div className="library-hero-grid">
               <div className="library-hero-content">

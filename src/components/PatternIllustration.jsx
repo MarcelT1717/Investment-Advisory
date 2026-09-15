@@ -2,6 +2,7 @@ import React from 'react';
 import { patternIllustrations } from '../lib/patternIllustrations';
 
 const CANDLE_WIDTH = 46;
+const ZONE_CANDLE_WIDTH = 16;
 const BAR_WIDTH = 28;
 const BAR_GAP = 10;
 const BASELINE = 140;
@@ -10,6 +11,12 @@ const toneColor = {
   neutral: 'var(--text-muted)',
   negative: 'var(--sentiment-negative)',
   positive: 'var(--sentiment-positive)',
+};
+
+const zoneToneColor = {
+  range: 'var(--border-primary)',
+  retest: 'var(--sentiment-negative)',
+  invert: 'var(--sentiment-positive)',
 };
 
 const seriesColor = {
@@ -72,6 +79,73 @@ const PatternIllustration = ({ patternId }) => {
           rx="2"
         />
       ))}
+
+      {config.kind === 'zones' && (
+        <>
+          {(config.zones || []).map((z, i) => (
+            <g key={`zone-${i}`} x-excluded="true">
+              <rect
+                x={z.x1}
+                y={z.y1}
+                width={z.x2 - z.x1}
+                height={z.y2 - z.y1}
+                fill={zoneToneColor[z.tone] || zoneToneColor.range}
+                fillOpacity={z.tone === 'retest' ? 0.22 : 0.16}
+                stroke={zoneToneColor[z.tone] || zoneToneColor.range}
+                strokeWidth="1.25"
+                strokeOpacity="0.7"
+                strokeDasharray={z.tone === 'retest' ? '3 3' : undefined}
+              />
+              {z.label && (
+                <text
+                  x={z.x1 + 6}
+                  y={z.y1 - 6}
+                  fontSize="9"
+                  fontWeight="700"
+                  letterSpacing="0.4"
+                  fill={zoneToneColor[z.tone] || zoneToneColor.range}
+                  opacity="0.85"
+                  dangerouslySetInnerHTML={{ __html: z.label.toUpperCase() }}
+                />
+              )}
+            </g>
+          ))}
+          {(config.levels || []).map((lv, i) => (
+            <g key={`level-${i}`} x-excluded="true">
+              <line
+                x1="8" y1={lv.y} x2="296" y2={lv.y}
+                stroke="var(--text-muted)"
+                strokeWidth="1"
+                strokeDasharray="4 4"
+                opacity="0.6"
+              />
+              <text
+                x="302" y={lv.y + 4}
+                fontSize="10" fontWeight="600" fill="var(--text-muted)"
+                dangerouslySetInnerHTML={{ __html: lv.label }}
+              />
+              {/* dangerouslySetInnerHTML (not a JSX text child) sidesteps the dev
+                  visual-edits plugin wrapping dynamic .map() text in an
+                  SVG-invalid <span>, same reason no other kind here uses text children */}
+            </g>
+          ))}
+          {(config.candles || []).map((c, i) => (
+            <g key={`candle-${i}`} x-excluded="true">
+              <line x1={c.x} y1={c.wickTop} x2={c.x} y2={c.wickBottom} stroke={toneColor[c.tone]} strokeWidth="1.75" />
+              <rect
+                x={c.x - ZONE_CANDLE_WIDTH / 2}
+                y={c.bodyTop}
+                width={ZONE_CANDLE_WIDTH}
+                height={Math.max(c.bodyBottom - c.bodyTop, 3)}
+                fill={toneColor[c.tone]}
+                stroke="var(--bg-tertiary)"
+                strokeWidth="0.75"
+                rx="1.5"
+              />
+            </g>
+          ))}
+        </>
+      )}
     </svg>
   );
 };

@@ -12,6 +12,8 @@ const Insights = () => {
       {/* Hero Section */}
       <section className="library-hero">
         <div className="library-hero-block">
+          <div className="library-hero-edge"></div>
+          <div className="library-hero-bg"></div>
           <div className="container">
             <div className="library-hero-grid">
               <div className="library-hero-content">
@@ -21,7 +23,7 @@ const Insights = () => {
                   Commentary on markets, financial planning, and the economy
                 </p>
               </div>
-              <HeroParallaxPhoto image="/images/service-market-research.jpg" />
+              <HeroParallaxPhoto image="/images/collage-chicago-detail.jpg" />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, CalendarCheck, CheckCircle } from 'lucide-react';
 
-const ADVISOR_EMAIL = 'marceltegos@gmail.com';
+const ADVISOR_EMAIL = 'consultation@standardthreewealth.com';
 
 const ConsultationModal = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');

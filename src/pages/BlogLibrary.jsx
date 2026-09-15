@@ -34,6 +34,8 @@ const BlogLibrary = () => {
     <div className="min-h-screen">
       <section className="library-hero">
         <div className="library-hero-block">
+          <div className="library-hero-edge"></div>
+          <div className="library-hero-bg"></div>
           <div className="container">
             <div className="library-hero-grid">
               <div className="library-hero-content">
@@ -99,40 +101,47 @@ const BlogLibrary = () => {
             </div>
           ) : (
             <div className="library-grid">
-              {filteredInsights.map((item, i) => (
-                <div
-                  key={item.id}
-                  className="library-card"
-                  style={{ animationDelay: `${Math.min(i, 8) * 0.06}s` }}
-                  data-testid={`insight-card-${item.id}`}
-                >
-                  <div className="library-card-preview">
-                    <div
-                      className="library-card-cover"
-                      style={{ backgroundImage: `url('${item.image}')`, backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '100%' }}
-                    ></div>
-                  </div>
-
-                  <div className="library-card-content">
-                    <div className="library-card-category">
-                      <Tag size={14} />
-                      <span>{item.category}</span>
+              {filteredInsights.map((item, i) => {
+                const CardTag = item.fileUrl ? 'a' : 'div';
+                const linkProps = item.fileUrl
+                  ? { href: item.fileUrl, target: '_blank', rel: 'noopener noreferrer' }
+                  : {};
+                return (
+                  <CardTag
+                    key={item.id}
+                    {...linkProps}
+                    className="library-card"
+                    style={{ animationDelay: `${Math.min(i, 8) * 0.06}s` }}
+                    data-testid={`insight-card-${item.id}`}
+                  >
+                    <div className="library-card-preview">
+                      <div
+                        className="library-card-cover"
+                        style={{ backgroundImage: `url('${item.image}')`, backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '100%' }}
+                      ></div>
                     </div>
 
-                    <h3 className="library-card-title">{item.title}</h3>
-
-                    <p className="library-card-description">{item.description}</p>
-
-                    <div className="library-card-footer">
-                      <div className="library-card-date">
-                        <Calendar size={14} />
-                        <span>{formatDate(item.date)}</span>
+                    <div className="library-card-content">
+                      <div className="library-card-category">
+                        <Tag size={14} />
+                        <span>{item.category}</span>
                       </div>
-                      <span className="body-sm text-text-muted">{item.readTime}</span>
+
+                      <h3 className="library-card-title">{item.title}</h3>
+
+                      <p className="library-card-description">{item.description}</p>
+
+                      <div className="library-card-footer">
+                        <div className="library-card-date">
+                          <Calendar size={14} />
+                          <span>{formatDate(item.date)}</span>
+                        </div>
+                        <span className="body-sm text-text-muted">{item.readTime}</span>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  </CardTag>
+                );
+              })}
             </div>
           )}
         </div>

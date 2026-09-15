@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { CalendarCheck, ArrowRight } from 'lucide-react';
+import { CalendarCheck } from 'lucide-react';
 import { useConsultation } from '../context/ConsultationContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { services } from '../lib/servicesData';
@@ -44,6 +43,8 @@ const Services = () => {
     <div className="min-h-screen">
       <section className="library-hero">
         <div className="library-hero-block">
+          <div className="library-hero-edge"></div>
+          <div className="library-hero-bg"></div>
           <div className="container">
             <div className="library-hero-grid">
               <div className="library-hero-content">
@@ -96,16 +97,20 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Our Competitive Advantage — same dark-band treatment used across
-          the site (already black, not the navy-blue reference), photo +
-          title breaking out the top, three divided columns below. */}
+      {/* The Standard III Difference — navy band, photo breaking out the
+          top of the section (absolutely positioned inside a normal-flow
+          wrapper, same pattern as .library-hero-photo, so the break-out
+          doesn't leave a gap in the flow below it), three divided columns
+          below. */}
       <section className="dark-band advantage-section">
         <div className="container">
           <div className="advantage-header">
-            <div
-              className="advantage-photo"
-              style={{ backgroundImage: "url('/images/service-market-research.jpg')" }}
-            ></div>
+            <div className="advantage-photo-wrap">
+              <div
+                className="advantage-photo"
+                style={{ backgroundImage: "url('/images/service-stock-ticker.jpg')" }}
+              ></div>
+            </div>
             <h2 className="section-title advantage-title">
               The Standard III
               <br />
@@ -153,18 +158,14 @@ const Services = () => {
               ></div>
               <div className="process-row-content">
                 <h3 className="process-row-title">{service.title}</h3>
-                <p className="process-row-desc">{service.desc}</p>
-                <Link to={`/services/${service.id}`} className="process-row-link">
-                  Learn more
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                <p className="process-row-desc">{service.story}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className={`container pb-24 reveal-section ${ctaVisible ? 'revealed' : ''}`} ref={ctaRef}>
+      <section className={`container pb-40 reveal-section ${ctaVisible ? 'revealed' : ''}`} ref={ctaRef}>
         <div className="services-cta-card">
           <div className="services-cta-icon">
             <CalendarCheck className="w-6 h-6" />

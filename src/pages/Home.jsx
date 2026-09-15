@@ -31,11 +31,33 @@ const Home = () => {
 
   const [newsletterEmail, setNewsletterEmail] = React.useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = React.useState(false);
+  const [newsletterStatus, setNewsletterStatus] = React.useState('idle'); // idle, loading, error
+  const [newsletterError, setNewsletterError] = React.useState('');
 
-  const handleNewsletterSubmit = (e) => {
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    if (!newsletterEmail) return;
-    setNewsletterSubscribed(true);
+    if (!newsletterEmail || newsletterStatus === 'loading') return;
+
+    setNewsletterStatus('loading');
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setNewsletterSubscribed(true);
+        setNewsletterStatus('idle');
+      } else {
+        setNewsletterError(data.error || 'Could not subscribe right now. Please try again.');
+        setNewsletterStatus('error');
+      }
+    } catch {
+      setNewsletterError('Could not subscribe right now. Please try again.');
+      setNewsletterStatus('error');
+    }
   };
 
 
@@ -63,6 +85,29 @@ const Home = () => {
   const [newsletterRef, newsletterVisible] = useScrollReveal();
   const [insightsRef, insightsVisible] = useScrollReveal();
   const [portfolioRef, portfolioVisible] = useScrollReveal();
+  const [livePrices, setLivePrices] = React.useState({});
+
+  React.useEffect(() => {
+    const tickers = portfolio.map((h) => h.ticker).join(',');
+    let cancelled = false;
+
+    const fetchQuotes = async () => {
+      try {
+        const res = await fetch(`/api/quotes?symbols=${tickers}`);
+        const data = await res.json();
+        if (!cancelled && data.quotes) setLivePrices(data.quotes);
+      } catch {
+        // Keep showing the last known prices if the fetch fails.
+      }
+    };
+
+    fetchQuotes();
+    const interval = setInterval(fetchQuotes, 60000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
   const [finalCtaRef, finalCtaVisible] = useScrollReveal();
 
   const formatDate = (dateStr) => {
@@ -143,10 +188,6 @@ const Home = () => {
                   </div>
                   <h3 className="offer-detail-title">{services[activeOffer].title}</h3>
                   <p className="offer-detail-desc">{services[activeOffer].desc}</p>
-                  <Link to={`/services/${services[activeOffer].id}`} className="about-intro-link">
-                    Learn More
-                    <ArrowUpRight className="w-4 h-4" />
-                  </Link>
                 </div>
               );
             })()}
@@ -184,7 +225,7 @@ const Home = () => {
               </p>
             </div>
             <div className="about-intro-photo firm-photo">
-              <img src="/images/service-building.jpg" alt="Looking up at glass office towers" className="firm-photo-img" />
+              <img src="/images/service-stock-research.jpg" alt="Magnifying glass over financial data" className="firm-photo-img" />
             </div>
           </div>
         </div>
@@ -237,29 +278,35 @@ const Home = () => {
         </div>
 
         <div className="insights-masonry">
-          {featuredInsights.map((item, i) => (
-            <Link
-              key={item.id}
-              to="/insights"
-              className={`insight-masonry-card reveal-section reveal-stagger ${insightsVisible ? 'revealed' : ''}`}
-              style={{ '--reveal-i': i }}
-            >
-              <div
-                className="insight-masonry-image-wrap"
-                style={{ aspectRatio: masonryAspect[i % masonryAspect.length] }}
+          {featuredInsights.map((item, i) => {
+            const CardTag = item.fileUrl ? 'a' : Link;
+            const linkProps = item.fileUrl
+              ? { href: item.fileUrl, target: '_blank', rel: 'noopener noreferrer' }
+              : { to: '/insights' };
+            return (
+              <CardTag
+                key={item.id}
+                {...linkProps}
+                className={`insight-masonry-card reveal-section reveal-stagger ${insightsVisible ? 'revealed' : ''}`}
+                style={{ '--reveal-i': i }}
               >
-                <img src={item.image} alt={item.title} className="insight-masonry-image" />
-              </div>
-              <span className="insight-masonry-category">{item.category}</span>
-              <h3 className="insight-masonry-title">{item.title}</h3>
-              <p className="insight-masonry-desc">{item.description}</p>
-              <div className="insight-masonry-meta">
-                <span>{formatDate(item.date)}</span>
-                <span className="insight-masonry-meta-dot">•</span>
-                <span>{item.readTime}</span>
-              </div>
-            </Link>
-          ))}
+                <div
+                  className="insight-masonry-image-wrap"
+                  style={{ aspectRatio: masonryAspect[i % masonryAspect.length] }}
+                >
+                  <img src={item.image} alt={item.title} className="insight-masonry-image" />
+                </div>
+                <span className="insight-masonry-category">{item.category}</span>
+                <h3 className="insight-masonry-title">{item.title}</h3>
+                <p className="insight-masonry-desc">{item.description}</p>
+                <div className="insight-masonry-meta">
+                  <span>{formatDate(item.date)}</span>
+                  <span className="insight-masonry-meta-dot">•</span>
+                  <span>{item.readTime}</span>
+                </div>
+              </CardTag>
+            );
+          })}
         </div>
 
         {/* Newsletter signup — merged directly into the blog section as an
@@ -291,15 +338,21 @@ const Home = () => {
                   required
                   placeholder="Your email address"
                   value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  onChange={(e) => {
+                    setNewsletterEmail(e.target.value);
+                    if (newsletterStatus === 'error') setNewsletterStatus('idle');
+                  }}
                   className="newsletter-hero-input"
                   aria-label="Email address"
                 />
-                <button type="submit" className="newsletter-hero-btn" aria-label="Subscribe">
-                  <span className="hidden sm:inline">Subscribe</span>
+                <button type="submit" className="newsletter-hero-btn" aria-label="Subscribe" disabled={newsletterStatus === 'loading'}>
+                  <span className="hidden sm:inline">{newsletterStatus === 'loading' ? 'Subscribing…' : 'Subscribe'}</span>
                   <Send className="w-4 h-4 sm:hidden" />
                 </button>
               </form>
+            )}
+            {newsletterStatus === 'error' && (
+              <p className="newsletter-hero-success" style={{ color: '#dc2626' }}>{newsletterError}</p>
             )}
             <p className="newsletter-inline-fineprint">No spam, ever · Unsubscribe anytime</p>
           </div>
@@ -322,42 +375,50 @@ const Home = () => {
         </div>
 
         <div className={`portfolio-grid reveal-section ${portfolioVisible ? 'revealed' : ''}`}>
-          {portfolio.map((holding, i) => (
-            <a
-              key={holding.ticker}
-              className="portfolio-cell reveal-stagger"
-              style={{ '--reveal-i': i % 4 }}
-              href={`https://${holding.site}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="portfolio-flip">
-                <div className="portfolio-face portfolio-face--front">
-                  <span className="portfolio-name">{holding.name}</span>
-                  <span className="portfolio-ticker">{holding.ticker}</span>
-                  <div className="portfolio-quote">
-                    <span className="portfolio-price">${holding.price}</span>
-                    <span className={`portfolio-change portfolio-change--${holding.direction}`}>
-                      {holding.change}
+          {portfolio.map((holding, i) => {
+            const live = livePrices[holding.ticker];
+            const price = live ? live.price.toFixed(2) : holding.price;
+            const direction = live ? (live.changePercent >= 0 ? 'up' : 'down') : holding.direction;
+            const changeLabel = live
+              ? `${live.changePercent >= 0 ? '+' : ''}${live.changePercent.toFixed(2)}%`
+              : holding.change;
+            return (
+              <a
+                key={holding.ticker}
+                className="portfolio-cell reveal-stagger"
+                style={{ '--reveal-i': i % 4 }}
+                href={`https://${holding.site}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="portfolio-flip">
+                  <div className="portfolio-face portfolio-face--front">
+                    <span className="portfolio-name">{holding.name}</span>
+                    <span className="portfolio-ticker">{holding.ticker}</span>
+                    <div className="portfolio-quote">
+                      <span className="portfolio-price">${price}</span>
+                      <span className={`portfolio-change portfolio-change--${direction}`}>
+                        {changeLabel}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="portfolio-face portfolio-face--back">
+                    <span className="portfolio-back-sector">{holding.sector}</span>
+                    <span className="portfolio-back-site">
+                      {holding.site}
+                      <ArrowUpRight className="w-4 h-4" />
                     </span>
+                    <span className="portfolio-back-hint">Visit website</span>
                   </div>
                 </div>
-                <div className="portfolio-face portfolio-face--back">
-                  <span className="portfolio-back-sector">{holding.sector}</span>
-                  <span className="portfolio-back-site">
-                    {holding.site}
-                    <ArrowUpRight className="w-4 h-4" />
-                  </span>
-                  <span className="portfolio-back-hint">Visit website</span>
-                </div>
-              </div>
-            </a>
-          ))}
+              </a>
+            );
+          })}
         </div>
 
         <div className="container">
           <p className="portfolio-disclaimer">
-            Sample holdings shown for illustration only — not live prices, and not investment advice.
+            Sample holdings shown for illustration only. Quotes may be delayed and are not investment advice.
           </p>
         </div>
       </section>

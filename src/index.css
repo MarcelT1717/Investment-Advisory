@@ -228,7 +228,16 @@ code {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Not a Tailwind-generated utility (theme has no "accent-primary" color
+   token) — defined here so every existing `text-accent-primary` usage
+   across the site actually renders the site's gold accent instead of
+   silently inheriting the surrounding text color. */
+.text-accent-primary {
+  color: var(--accent-primary);
 }
 
 .card-grid {
@@ -252,7 +261,8 @@ code {
   }
 
   .container {
-    padding: 0 16px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 

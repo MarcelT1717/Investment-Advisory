@@ -1,5 +1,5 @@
 import {
-  CandlestickChart, TrendingUp, BookMarked, ShieldQuestion,
+  CandlestickChart, TrendingUp, BookMarked, ShieldQuestion, Layers,
 } from 'lucide-react';
 
 // Categories shown in AcademyExplorer's sidebar (embedded on /insights and
@@ -20,6 +20,14 @@ export const academyCategories = [
     title: 'Technical Indicators',
     desc: 'The moving averages, oscillators, and volume tools used to read momentum and trend strength.',
     count: `${6} indicators`,
+    status: 'available',
+  },
+  {
+    id: 'price-action-tools',
+    icon: Layers,
+    title: 'Price Action Tools',
+    desc: 'The concepts institutional and "smart money" traders use to read price directly — fair value gaps, balanced price ranges, and the zones where price tends to react.',
+    count: `${3} tools`,
     status: 'available',
   },
   {
@@ -142,3 +150,46 @@ export const technicalIndicators = [
 ];
 
 export const indicatorCategories = ['Trend', 'Momentum', 'Volatility', 'Volume'];
+
+// Price-action / "smart money" concepts — read directly off candles rather
+// than a plotted indicator, so each gets its own illustration kind (see
+// patternIllustrations.js's 'zones' kind) that layers shaded price zones
+// and labeled levels on top of a candle sequence.
+export const priceActionTools = [
+  {
+    id: 'fair-value-gap',
+    name: 'Fair Value Gap',
+    category: 'Smart Money Concepts',
+    description: 'A Fair Value Gap (FVG) is an imbalance left behind when strong buying or selling pressure drives price to move so quickly that it leaves a gap on the chart. Look at a three-candle sequence: if the high of the first candle doesn\'t overlap the low of the third candle, the space between them is the FVG — drawn as a box from the first candle\'s high to the third candle\'s low. Price tends to return to that zone before continuing in the direction of the original move.',
+    keyPoints: [
+      'When price returns to a bullish FVG, it tends to reverse and rise again — if price falls through the bottom of the zone, the FVG is considered invalid and should no longer be used.',
+      'Works best on intraday time frames — 3-minute, 5-minute, and 15-minute charts are the most commonly used.',
+      'A common approach: enter as price approaches a previously identified FVG, target the opposite end of the gap, and place a stop-loss beyond the gap\'s furthest point.',
+    ],
+  },
+  {
+    id: 'inverse-fair-value-gap',
+    name: 'Inverse Fair Value Gap',
+    category: 'Smart Money Concepts',
+    description: 'An Inverse Fair Value Gap (IFVG) forms when a Fair Value Gap is invalidated — broken by a candle\'s wick or close. Once that happens, the zone flips roles: a bearish FVG that gets broken through becomes a bullish IFVG. Because it marks a broken imbalance rather than a fresh one, an IFVG can signal a shift in the market\'s momentum and a potential trend reversal.',
+    keyPoints: [
+      'A bullish IFVG starts out as a bearish FVG — once price wicks through or closes through it, that FVG is invalidated and becomes a bullish IFVG.',
+      'When price comes back to a bullish IFVG, the zone can be used as an area for potential long trade entries.',
+      'If price falls back through the bottom of a bullish IFVG zone, it is invalid and should no longer be used.',
+    ],
+  },
+  {
+    id: 'balanced-price-range',
+    name: 'Balanced Price Range',
+    category: 'Smart Money Concepts',
+    description: 'An overlapping area between two Fair Value Gaps (FVGs). To spot one, look for an FVG that overlaps an opposite FVG — the overlapping area between the two becomes the Balanced Price Range (BPR). Because two separate imbalances line up in the same zone, a BPR tends to draw more attention from larger, "smart money" participants than a single FVG on its own.',
+    keyPoints: [
+      'Use a BPR as an entry area on trend pullbacks — a bullish BPR for long entries in an uptrend, a bearish BPR for short entries in a downtrend.',
+      'Before continuing a major move, price frequently retests the BPR — that retest is the key moment to watch for an entry or exit.',
+      'A bullish BPR sitting in the discount zone (between the 0 and 0.5 levels of the recent range) is considered a higher-quality long setup.',
+      'A common risk framework: set the stop loss beyond the BPR and target roughly a 1:2 risk-to-reward trade on the retest.',
+    ],
+  },
+];
+
+export const priceActionCategories = ['Smart Money Concepts'];

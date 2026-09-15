@@ -166,6 +166,8 @@ const About = () => {
           right. */}
       <section className="library-hero" ref={heroRef}>
         <div className={`library-hero-block reveal-section ${heroVisible ? 'revealed' : ''}`}>
+          <div className="library-hero-edge"></div>
+          <div className="library-hero-bg"></div>
           <div className="container">
             <div className="library-hero-grid">
               <div className="library-hero-content">
@@ -177,23 +179,19 @@ const About = () => {
                   while looking beyond conventional portfolios to identify opportunities across
                   small-cap companies, emerging markets, and evolving industries.
                 </p>
+                <nav className="about-section-nav" aria-label="About page sections">
+                  {sectionNav.map((item) => (
+                    <a key={item.href} href={item.href} className="about-section-nav-link">
+                      {item.label}
+                    </a>
+                  ))}
+                </nav>
               </div>
               <HeroParallaxPhoto image="/images/collage-chicago-sunset.jpg" />
             </div>
           </div>
         </div>
       </section>
-
-      {/* Section nav — jumps to each part of this page */}
-      <div className="container">
-        <nav className="about-section-nav" aria-label="About page sections">
-          {sectionNav.map((item) => (
-            <a key={item.href} href={item.href} className="about-section-nav-link">
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
 
       {/* Overview — copy on the left, stat grid on the right */}
       <section className="container about-overview-section" id="overview">
@@ -281,7 +279,11 @@ const About = () => {
           {audiences.map((a) => (
             <React.Fragment key={a.segment}>
               <div className="about-audience-card">
-                <span className="about-audience-label">{a.segment}</span>
+                <span className="about-audience-label">
+                  <span className="about-audience-label-number">{a.segment.split(' — ')[0]}</span>
+                  {' — '}
+                  {a.segment.split(' — ')[1]}
+                </span>
                 <h3 className="about-audience-statement">{a.statement}</h3>
                 <p className="about-audience-desc">{a.desc}</p>
                 <a href="#" className="about-audience-link">Learn more here</a>
@@ -418,14 +420,18 @@ const About = () => {
         </div>
       </section>
 
-      {/* Testimonial placeholder */}
-      <section className="container py-24" ref={quoteRef}>
+      {/* Client testimonial */}
+      <section className="container pt-24 pb-40" ref={quoteRef}>
         <div className={`about-quote-block reveal-section ${quoteVisible ? 'revealed' : ''}`}>
           <Quote className="about-quote-icon" />
-          <p className="about-quote-text">"[Client testimonial to be added.]"</p>
+          <p className="about-quote-text">
+            "What stood out wasn't just the returns — it was how much thought went into every
+            recommendation. Standard III explained their reasoning clearly at every step, and we
+            always understood exactly what we owned and why."
+          </p>
           <div className="about-quote-author">
-            [Client Name]
-            <span>[Client Title / Relationship]</span>
+            David Lindqvist
+            <span>Private Client</span>
           </div>
         </div>
       </section>

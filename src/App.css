@@ -82,7 +82,7 @@
 
 /* Logo — the mark itself, no wrapping box/border/background of our own. */
 .brand-logo-img {
-  height: 44px;
+  height: 56px;
   width: auto;
   flex-shrink: 0;
 }
@@ -93,6 +93,12 @@
 .brand-wordmark {
   font-family: 'DM Serif Display', Georgia, serif;
   font-weight: 400;
+}
+
+/* Header only — the wordmark reads small next to the enlarged logo mark;
+   the footer keeps its own smaller .h4 size. */
+.header-sticky .brand-wordmark {
+  font-size: 26px;
 }
 
 /* Stock Ticker Carousel - Horizontal Scrolling */
@@ -753,22 +759,46 @@
    site (plain black, not the navy-blue reference this was styled after). */
 .advantage-section.dark-band {
   overflow: visible;
-  padding: 100px 0;
+  padding: 64px 0;
+  /* Navy instead of the site's default near-black dark-band, matching the
+     reference treatment for this section specifically. */
+  --bg-primary: var(--brand-navy-ink);
+  --bg-secondary: rgb(24, 38, 96);
+  --bg-tertiary: rgb(34, 49, 110);
+  --border-subtle: rgba(255, 255, 255, 0.16);
 }
 
 .advantage-header {
   display: grid;
-  grid-template-columns: minmax(260px, 420px) 1fr;
+  grid-template-columns: minmax(220px, 400px) 1fr;
   gap: 48px;
   align-items: center;
   margin-bottom: 72px;
 }
 
-.advantage-photo {
+/* Normal-flow placeholder the size of the photo (so the grid row/columns
+   below sit where they naturally should) — the photo itself is
+   absolutely positioned inside it and pulled up past the wrapper's own
+   top, same break-out pattern as .library-hero-photo-wrap/-photo. Using
+   position:relative;top on the photo directly (the previous approach)
+   left a dead gap below it, since the row still reserved space at the
+   photo's un-shifted flow position. */
+.advantage-photo-wrap {
   position: relative;
-  top: -60px;
-  width: 100%;
-  aspect-ratio: 4 / 3;
+  /* Slim banner rectangle rather than the near-square shape the old
+     breakout offset used to produce. */
+  aspect-ratio: 5 / 2;
+}
+
+.advantage-photo {
+  position: absolute;
+  /* Exceeds the section's own top padding (see .advantage-section.dark-band)
+     so the photo visibly breaks past the navy band's top edge instead of
+     staying contained inside it. */
+  top: -120px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 0;
   background-size: cover;
   background-position: center;
@@ -776,8 +806,6 @@
 }
 
 .advantage-title {
-  position: relative;
-  top: -60px;
   line-height: 1.2;
 }
 
@@ -812,14 +840,14 @@
 }
 
 @media (max-width: 900px) {
+  .advantage-section.dark-band {
+    padding: 80px 0 64px;
+  }
   .advantage-header {
     grid-template-columns: 1fr;
   }
   .advantage-photo {
     top: -40px;
-  }
-  .advantage-title {
-    top: 0;
   }
   .advantage-columns {
     grid-template-columns: 1fr;
@@ -1348,6 +1376,12 @@
   color: var(--text-primary);
 }
 
+/* Higher specificity than ".header-sticky .h3 *" above so the "III" in the
+   wordmark stays gold instead of being swept into the plain text color. */
+.header-sticky .h3 .text-accent-primary {
+  color: var(--accent-primary);
+}
+
 .header-sticky .subscribe-pill {
   border-color: rgba(198, 170, 131, 0.4);
 }
@@ -1436,6 +1470,12 @@ main {
   color: rgb(255, 255, 255);
 }
 
+/* Same override as the solid bar above — keep "III" gold over the hero
+   photo instead of white. */
+.header-sticky--transparent .h3 .text-accent-primary {
+  color: var(--accent-primary);
+}
+
 .header-sticky--transparent .brand-logo-img {
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
@@ -1480,6 +1520,19 @@ main {
 
 .header-sticky--transparent .btn-ghost {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* Pull the logo closer to the screen edge on mobile — the standard
+   .container padding (plus the transparent variant's own 32px inset)
+   leaves the logo sitting further in than it needs to on a small
+   screen. */
+@media (max-width: 768px) {
+  .header-sticky .container {
+    padding-left: 12px;
+  }
+  .header-sticky--transparent {
+    left: 12px;
+  }
 }
 
 /* Navigation Pills - Boxy Style */
@@ -2066,10 +2119,10 @@ section {
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1.15fr 0.7fr 1.35fr 0.8fr;
-  gap: 48px;
-  margin-bottom: 60px;
-  padding-bottom: 60px;
+  grid-template-columns: 1.3fr 0.7fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -2185,7 +2238,7 @@ section {
 
 /* Footer Bottom */
 .footer-bottom {
-  padding-top: 32px;
+  padding-top: 20px;
 }
 
 /* Responsive Footer */
@@ -2213,8 +2266,8 @@ section {
   .footer-main {
     grid-template-columns: 1fr;
     gap: 40px;
-    margin-bottom: 40px;
-    padding-bottom: 40px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
   }
 
   .footer-redesign:not(.footer-redesign--plain) .footer-main {
@@ -4347,23 +4400,28 @@ section {
    LIBRARY PAGE STYLES
    ======================================== */
 
-/* Library hero — shared by About, Services, Insights, and Contact.
-   A plain black rectangle sitting below the normal, always-solid
-   header (not a floating card) — two columns: breadcrumb + headline +
-   copy on the left, a photo that breaks out past the block's bottom edge
-   on the right, onto the white page below. */
+/* Library hero — shared by About, Services, Insights, Market Intelligence,
+   Library, and Contact. Same angular navy/gold shape as the service detail
+   hero (.sd-hero-angular) — a diagonal-cut navy gradient block with a thin
+   gold sliver along the seam, breaking out from under the fixed header
+   (same -80px trick as Home/.sd-hero-angular) so the transparent header
+   sits directly on the navy shape instead of a white gap: two columns,
+   breadcrumb + headline + copy on the left (full height, never touched by
+   the diagonal), a photo that breaks out past the block's bottom edge on
+   the right, onto the white page below. */
 .library-hero {
   background: var(--bg-primary);
-  padding-top: 40px;
-  padding-bottom: 190px;
+  margin-top: -80px;
+  padding-bottom: 166px;
 }
 
 .library-hero-block {
   position: relative;
   overflow: visible;
-  background: rgb(8, 10, 14);
-  margin: 0 32px;
-  padding: 96px 0;
+  margin: 0;
+  /* Top padding covers the -80px reclaimed from main's header offset plus
+     clearance for the floating transparent header itself. */
+  padding: 140px 0 110px;
   --bg-primary: rgb(8, 10, 14);
   --bg-secondary: rgb(20, 24, 32);
   --text-primary: rgb(255, 255, 255);
@@ -4373,6 +4431,36 @@ section {
   --accent-primary: rgb(198, 170, 131);
   --accent-hover: rgb(214, 190, 151);
   --accent-bg: rgba(198, 170, 131, 0.14);
+}
+
+/* Gold sliver peeking out from behind the black/gold shape's diagonal
+   edge — same clip-path as .library-hero-bg, offset down a few px and
+   sitting behind it, so the seam reads as a deliberate accent line
+   instead of a plain color change (same trick as .sd-hero-angular-edge). */
+.library-hero-edge {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--accent-primary);
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+  transform: translateY(5px);
+}
+
+.library-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Black-to-bronze gradient — Standard III's black/gold colorway instead
+     of the navy used on the "Standard III Difference" band elsewhere. */
+  background: linear-gradient(135deg, rgb(8, 10, 14) 0%, rgb(26, 22, 18) 55%, rgb(46, 36, 20) 100%);
+  /* Full height on the left (where the headline sits) — only the right
+     portion, already covered by the breakout photo, gets cut down. */
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+}
+
+.library-hero-block > .container {
+  position: relative;
+  z-index: 2;
 }
 
 .library-hero-grid {
@@ -4417,8 +4505,10 @@ section {
 
 .library-hero-photo {
   position: absolute;
-  top: -20px;
-  bottom: -170px;
+  /* Bottom offset keeps the photo's overhang proportional to
+     .library-hero-block's own bottom padding (110px). */
+  top: -15px;
+  bottom: -146px;
   left: 0;
   right: 0;
   background-size: cover;
@@ -4431,11 +4521,22 @@ section {
   .library-hero-content { max-width: 100%; }
   .library-hero-photo-wrap { height: 280px; }
   .library-hero-photo { position: absolute; inset: 0; }
+  /* Content and photo stack in one column below this width, so the
+     dramatic diagonal (tuned for content-left/photo-right) would cut
+     across the stacked photo instead — flatten it to a gentle end-of-block
+     taper instead, same fallback as .sd-hero-angular's mobile clip-path. */
+  .library-hero-edge,
+  .library-hero-bg {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  }
 }
 
 @media (max-width: 640px) {
-  .library-hero { padding-top: 24px; padding-bottom: 60px; }
-  .library-hero-block { margin: 0 16px; padding: 40px 0; }
+  .library-hero { padding-bottom: 60px; }
+  /* Keep enough top clearance for the floating transparent header (no
+     padding-top on .library-hero itself — that would show as a white gap
+     above the navy shape, behind the transparent header). */
+  .library-hero-block { padding: 120px 0 64px; }
 }
 
 .library-filters-section {
@@ -6812,33 +6913,35 @@ section {
    shared .library-hero class stays untouched for Services, Insights,
    and Contact. */
 
-/* Pill section nav — jumps between the parts of this page */
+/* Section nav — jumps between the parts of this page. Four separate
+   buttons rather than one shared pill, sitting inside the dark hero
+   block itself (below the subtitle). */
 .about-section-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 8px;
-  background: rgb(17, 24, 39);
-  border-radius: 0;
-  padding: 10px 14px;
+  gap: 10px;
   width: fit-content;
   max-width: 100%;
-  margin: 0 0 90px;
+  margin: 36px 0 0;
 }
 
 .about-section-nav-link {
-  padding: 8px 18px;
+  padding: 10px 20px;
   border-radius: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 14.5px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   white-space: nowrap;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .about-section-nav-link:hover {
   background: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
   color: rgb(17, 24, 39);
 }
 
@@ -7288,14 +7391,19 @@ section {
   background: rgb(250, 246, 240);
   padding: 40px 32px 32px;
   border-bottom: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-primary);
 }
 
 .about-audience-label {
   display: block;
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 22px;
-  color: var(--text-primary);
+  color: var(--brand-navy-ink);
   margin-bottom: 20px;
+}
+
+.about-audience-label-number {
+  color: var(--accent-primary);
 }
 
 .about-audience-statement {
@@ -7303,7 +7411,7 @@ section {
   font-weight: 400;
   font-size: 28px;
   line-height: 1.25;
-  color: var(--text-primary);
+  color: var(--brand-navy-ink);
   margin-bottom: 20px;
 }
 
@@ -7682,9 +7790,162 @@ section {
 
 
 /* ============================================================
-   SERVICE DETAIL PAGE — highlights grid, process timeline, FAQ
+   SERVICE DETAIL PAGE — angular navy hero + floating card,
+   highlights grid, process timeline, FAQ
    ============================================================ */
 
+/* Angular hero — navy block with a diagonal bottom edge (clip-path),
+   headline/CTA in the navy area, and a floating white card overlapping
+   the diagonal seam on the right, mirroring the reference layout. */
+.sd-hero-angular {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 560px;
+  padding-bottom: 110px;
+  overflow: visible;
+  /* main has padding-top:80px reserved for the fixed header; pull the
+     hero up under it (same trick as .hero-section-photo on Home) so the
+     navy shape starts at the very top of the viewport instead of leaving
+     a blank white gap the transparent header's white text disappears
+     into. */
+  margin-top: -80px;
+}
+
+/* Thin gold sliver peeking out from behind the navy shape's diagonal
+   edge — same clip-path, offset down a few px, sitting behind the navy
+   layer — so the seam reads as a deliberate Standard III gold/navy
+   accent line instead of a plain color change. */
+.sd-hero-angular-edge {
+  position: absolute;
+  inset: 0;
+  background: var(--accent-primary);
+  clip-path: polygon(0 0, 100% 0, 100% 56%, 0 92%);
+  transform: translateY(5px);
+}
+
+.sd-hero-angular-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Same navy tones used for the "Standard III Difference" band on
+     /services, not an unrelated invented gradient. */
+  background: linear-gradient(135deg, var(--brand-navy-ink) 0%, rgb(24, 38, 96) 55%, rgb(34, 49, 110) 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 56%, 0 92%);
+}
+
+.sd-hero-angular-content {
+  position: relative;
+  z-index: 2;
+  /* Vertically centered by .sd-hero-angular's flex layout, within the
+     shape's taller left portion — this top padding is just a minimum
+     safety margin so short content never sits under the floating header. */
+  padding-top: 90px;
+  /* Anchored to the true viewport edge with a fixed inset instead of the
+     site's centered 1200px .container — this is a full-bleed navy shape,
+     not a boxed card, so on wide screens the text should hug the left
+     edge rather than float in the middle of a centered column. */
+  padding-left: clamp(24px, 5vw, 80px);
+  max-width: 620px;
+}
+
+.sd-hero-angular-eyebrow {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 18px;
+}
+
+.sd-hero-angular-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(34px, 4.4vw, 50px);
+  line-height: 1.12;
+  color: rgb(255, 255, 255);
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+
+.sd-hero-angular-subtitle {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 32px;
+  max-width: 460px;
+}
+
+/* Floating "What We Do" card — sits over the diagonal seam so it reads
+   as lifted off the navy shape, straddling navy above and white below. */
+.sd-hero-angular-card {
+  position: absolute;
+  /* Matches .sd-hero-angular-content's edge inset on the other side, so
+     both stay anchored to the true viewport edge instead of a centered
+     1200px column. */
+  right: clamp(24px, 5vw, 80px);
+  bottom: 0;
+  z-index: 3;
+  width: 340px;
+  max-width: calc(100% - 48px);
+  background: var(--bg-primary);
+  border-radius: 4px;
+  padding: 32px 30px;
+  box-shadow: 0 30px 70px rgba(8, 10, 20, 0.28);
+}
+
+.sd-hero-angular-card-eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 14px;
+}
+
+.sd-hero-angular-card-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.sd-hero-angular-card-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+
+@media (max-width: 768px) {
+  .sd-hero-angular {
+    /* .sd-hero-angular-card switches to a normal-flow element below, so
+       it needs to stack under the content instead of sitting beside it
+       as a second row item in the desktop centering flex row. */
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding-bottom: 32px;
+  }
+  .sd-hero-angular-bg,
+  .sd-hero-angular-edge {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  }
+  .sd-hero-angular-content {
+    padding-top: 70px;
+    max-width: 100%;
+  }
+  .sd-hero-angular-card {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 28px;
+  }
+}
+
+/* Shared with BlogCarousel's "From The Blog" label — not exclusive to
+   the service detail page despite the sd- prefix. */
 .sd-section-label {
   font-size: 13px;
   font-weight: 700;
@@ -7694,98 +7955,87 @@ section {
   margin-bottom: 12px;
 }
 
-.sd-section-intro {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--text-secondary);
-  max-width: 640px;
-  margin-bottom: 44px;
+/* Story — firm-voice intro paragraph beside the service photo. */
+.sd-story-section {
+  padding: 96px 0;
 }
 
-/* What's Included — reuses .about-info-card / .about-card-icon etc. */
-.sd-highlights-grid {
+.sd-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.sd-story-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.sd-story-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 480px;
+}
+
+.sd-story-photo {
+  aspect-ratio: 4 / 3;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 24px 60px rgba(17, 24, 39, 0.15);
+}
+
+@media (max-width: 900px) {
+  .sd-story-section { padding: 64px 0; }
+  .sd-story-grid { grid-template-columns: 1fr; gap: 32px; }
+  .sd-story-photo { order: -1; }
+}
+
+/* Three-column features, reusing the same highlights data that used to
+   feed the dark "What's Included" cards. */
+.sd-features-section {
+  padding-bottom: 120px;
+}
+
+.sd-features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 48px;
 }
 
-@media (max-width: 900px) {
-  .sd-highlights-grid { grid-template-columns: 1fr; }
-}
-
-/* How We Work Together — numbered step timeline with a connecting rail */
-.sd-process {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-  position: relative;
-}
-
-.sd-process::before {
-  content: '';
-  position: absolute;
-  top: 23px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--border-subtle);
-  z-index: 0;
-}
-
-@media (max-width: 900px) {
-  .sd-process { grid-template-columns: 1fr; gap: 36px; }
-  .sd-process::before { display: none; }
-}
-
-.sd-process-step {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.sd-process-num {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: var(--bg-primary);
-  border: 1.5px solid var(--accent-primary);
+.sd-feature-col-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--accent-bg);
   color: var(--accent-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 18px;
+  margin-bottom: 20px;
 }
 
-.sd-process-title {
-  font-size: 16px;
+.sd-feature-col-title {
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 10px;
 }
 
-.sd-process-desc {
-  font-size: 14px;
+.sd-feature-col-desc {
+  font-size: 14.5px;
+  line-height: 1.7;
   color: var(--text-secondary);
-  line-height: 1.65;
-}
-
-/* Two-column layout: sticky "Is This Right for You" CTA + FAQ accordion */
-.sd-columns {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 40px;
-  align-items: start;
 }
 
 @media (max-width: 900px) {
-  .sd-columns { grid-template-columns: 1fr; }
-}
-
-.sd-cta-sticky {
-  position: sticky;
-  top: 110px;
+  .sd-features-section { padding-bottom: 80px; }
+  .sd-features-grid { grid-template-columns: 1fr; gap: 36px; }
 }
 
 /* ============================================================
@@ -8137,6 +8387,14 @@ section {
   padding: 56px 0 96px;
 }
 
+.academy-intro {
+  max-width: 680px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
 .academy-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -8157,6 +8415,7 @@ section {
   overflow: hidden;
   max-height: calc(100vh - 140px);
   overflow-y: auto;
+  box-shadow: 0 12px 32px rgba(17, 24, 39, 0.06);
 }
 
 @media (max-width: 900px) {
@@ -8167,35 +8426,60 @@ section {
   border-top: 1px solid var(--border-subtle);
 }
 
-/* Top level of the sidebar tree — one per Academy category (Chart
-   Patterns, Technical Indicators, ...). Sub-groups (pattern type /
-   indicator category) and leaf items nest inside using the classes below. */
-.academy-sidebar-category + .academy-sidebar-category {
-  border-top: 1px solid var(--border-subtle);
+/* Topic tabs — one per Academy category (Chart Patterns, Technical
+   Indicators, ...), sitting above the sidebar+detail layout. Picking a
+   tab swaps which category's groups/items the sidebar below shows,
+   instead of stacking every category into one long scrollable list. */
+.academy-topic-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.05);
 }
 
-.academy-sidebar-category-header {
-  width: 100%;
+.academy-topic-tab {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 18px;
+  gap: 10px;
+  flex: 1 1 200px;
+  padding: 18px 20px;
   background: transparent;
   border: none;
+  border-right: 1px solid var(--border-subtle);
   cursor: pointer;
   text-align: left;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
   color: var(--text-primary);
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-.academy-sidebar-category-header:hover {
-  color: var(--accent-primary);
+.academy-topic-tab:last-child {
+  border-right: none;
 }
 
-.academy-sidebar-category-icon {
-  width: 30px;
-  height: 30px;
+.academy-topic-tab:hover:not(.is-active):not(:disabled) {
+  background: var(--bg-tertiary);
+}
+
+.academy-topic-tab.is-active {
+  background: var(--brand-navy-ink);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 2px var(--accent-primary);
+}
+
+.academy-topic-tab.is-locked {
+  cursor: default;
+  color: var(--text-muted);
+}
+
+.academy-topic-tab-icon {
+  width: 28px;
+  height: 28px;
   border-radius: 8px;
   background: var(--accent-bg);
   color: var(--accent-primary);
@@ -8205,28 +8489,78 @@ section {
   flex-shrink: 0;
 }
 
-.academy-sidebar-category-label {
+.academy-topic-tab.is-active .academy-topic-tab-icon {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.academy-topic-tab.is-locked .academy-topic-tab-icon {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+}
+
+.academy-topic-tab-label {
   flex: 1;
   min-width: 0;
 }
 
-.academy-sidebar-category-count {
-  font-size: 11px;
-  font-weight: 600;
+.academy-topic-tab-locked-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border-radius: 20px;
+  padding: 3px 8px;
   flex-shrink: 0;
 }
 
-.academy-sidebar-category--locked .academy-sidebar-category-header {
-  cursor: default;
+@media (max-width: 700px) {
+  .academy-topic-tab {
+    flex: 1 1 50%;
+    border-bottom: 1px solid var(--border-subtle);
+  }
 }
 
-.academy-sidebar-category--locked .academy-sidebar-category-header:hover {
+/* Placeholder shown in place of the sidebar+detail layout when a locked
+   ("coming soon") topic tab is selected. */
+.academy-topic-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 64px 32px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+}
+
+.academy-topic-empty-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.academy-topic-empty-title {
+  font-size: 19px;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
-.academy-sidebar-category--locked .academy-sidebar-category-icon {
-  background: var(--bg-tertiary);
+.academy-topic-empty-desc {
+  max-width: 480px;
+  font-size: 14.5px;
   color: var(--text-muted);
 }
 
@@ -8238,7 +8572,7 @@ section {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
   padding: 16px 18px;
   background: transparent;
   border: none;
@@ -8253,6 +8587,21 @@ section {
 
 .academy-sidebar-group-header:hover {
   color: var(--text-primary);
+}
+
+.academy-sidebar-group-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.academy-sidebar-group-count {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border-radius: 20px;
+  padding: 2px 7px;
+  flex-shrink: 0;
 }
 
 .academy-sidebar-chevron {
@@ -8309,32 +8658,111 @@ section {
   padding-bottom: 16px;
 }
 
-/* Detail panel */
+/* Detail panel — illustration and content sit side by side at desktop
+   widths instead of stacking, so the panel actually uses the width the
+   two-column layout gives it rather than centering a small SVG in a lot
+   of empty space above a separate text block. */
 .academy-detail-panel {
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
   overflow: hidden;
   animation: fadeInUp 0.35s ease both;
+  box-shadow: 0 16px 40px rgba(17, 24, 39, 0.07);
 }
 
+.academy-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 900px) {
+  .academy-detail-grid { grid-template-columns: 1fr; }
+}
+
+/* Faint dot grid — a "chart paper" texture behind the illustration,
+   instead of a flat fill. */
 .pattern-illustration-frame {
-  background: var(--bg-tertiary);
-  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-tertiary);
+  background-image: radial-gradient(var(--border-primary) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border-right: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 32px;
+  min-height: 340px;
+}
+
+@media (max-width: 900px) {
+  .pattern-illustration-frame {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    min-height: 240px;
+  }
+}
+
+.academy-detail-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 14px;
 }
 
 .pattern-illustration-svg {
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
   height: auto;
 }
 
 .academy-detail-body {
-  padding: 32px 36px 36px;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* "More in [group]" — related items from the same sidebar group, spanning
+   the full width beneath the two-column split above. */
+.academy-detail-related {
+  border-top: 1px solid var(--border-subtle);
+  padding: 22px 40px 26px;
+}
+
+.academy-detail-related-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.academy-detail-related-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.academy-related-pill {
+  padding: 7px 15px;
+  border-radius: 20px;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.academy-related-pill:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
 }
 
 .academy-detail-title {
@@ -8350,6 +8778,31 @@ section {
   line-height: 1.75;
   color: var(--text-secondary);
   max-width: 640px;
+}
+
+.academy-keypoints {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 640px;
+}
+
+.academy-keypoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.academy-keypoint-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--sentiment-positive);
 }
 
 /* Technical Indicators grid — reuses .about-info-card for the card shell */

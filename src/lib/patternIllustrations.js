@@ -6,6 +6,10 @@
 // kind: 'line'   — one or more polylines (`series`), each solid or dashed
 // kind: 'candle' — one or two candlestick glyphs (defines the pattern itself)
 // kind: 'bars'   — a simple bar chart (volume)
+// kind: 'zones'  — a full candle sequence (`candles`) plus shaded price
+//                  zones (`zones`) and labeled horizontal levels (`levels`),
+//                  for price-action/"smart money" concepts like fair value
+//                  gaps and balanced price ranges
 export const patternIllustrations = {
   'head-shoulders': {
     kind: 'line',
@@ -131,6 +135,91 @@ export const patternIllustrations = {
       { points: '10,30 300,30', color: 'gold', dashed: true },
       { points: '10,125 300,125', color: 'gold', dashed: true },
       { points: '10,60 30,110 55,40 80,120 105,50 130,105 155,45 180,115 205,55 230,100 255,60 280,95 300,75', color: 'navy' },
+    ],
+  },
+
+  // Price action / smart money concepts
+  'fair-value-gap': {
+    kind: 'zones',
+    levels: [],
+    zones: [
+      // The FVG itself — the gap between the candle before the impulse
+      // move's high and the candle after it's low, drawn as a band
+      // spanning the chart the way price is watched for a return visit.
+      { x1: 8, x2: 296, y1: 50, y2: 95, tone: 'range', label: 'FVG' },
+      // The retest — price dipping back into the gap to "fill" it before
+      // continuing higher.
+      { x1: 155, x2: 185, y1: 55, y2: 90, tone: 'retest' },
+    ],
+    candles: [
+      { x: 20, wickTop: 120, wickBottom: 150, bodyTop: 125, bodyBottom: 145, tone: 'positive' },
+      { x: 45, wickTop: 95, wickBottom: 130, bodyTop: 100, bodyBottom: 125, tone: 'positive' },
+      { x: 70, wickTop: 35, wickBottom: 100, bodyTop: 40, bodyBottom: 95, tone: 'positive' },
+      { x: 95, wickTop: 20, wickBottom: 50, bodyTop: 25, bodyBottom: 45, tone: 'positive' },
+      { x: 120, wickTop: 15, wickBottom: 45, bodyTop: 20, bodyBottom: 40, tone: 'negative' },
+      { x: 145, wickTop: 30, wickBottom: 70, bodyTop: 35, bodyBottom: 65, tone: 'negative' },
+      { x: 170, wickTop: 55, wickBottom: 95, bodyTop: 60, bodyBottom: 90, tone: 'negative' },
+      { x: 195, wickTop: 50, wickBottom: 85, bodyTop: 55, bodyBottom: 80, tone: 'positive' },
+      { x: 220, wickTop: 30, wickBottom: 65, bodyTop: 35, bodyBottom: 60, tone: 'positive' },
+      { x: 245, wickTop: 15, wickBottom: 45, bodyTop: 20, bodyBottom: 40, tone: 'positive' },
+      { x: 270, wickTop: 5, wickBottom: 30, bodyTop: 8, bodyBottom: 25, tone: 'positive' },
+    ],
+  },
+  'inverse-fair-value-gap': {
+    kind: 'zones',
+    levels: [],
+    zones: [
+      // A bearish FVG that later gets broken through and flips into a
+      // bullish IFVG — drawn in the same "invert" (bullish) tone
+      // throughout, since it's the post-invalidation reading of the zone
+      // that matters going forward.
+      { x1: 8, x2: 296, y1: 65, y2: 100, tone: 'invert', label: 'IFVG' },
+      // The retest — price coming back down to tag the flipped zone from
+      // above before continuing higher.
+      { x1: 218, x2: 248, y1: 68, y2: 96, tone: 'retest' },
+    ],
+    candles: [
+      { x: 20, wickTop: 15, wickBottom: 50, bodyTop: 20, bodyBottom: 45, tone: 'negative' },
+      { x: 45, wickTop: 35, wickBottom: 70, bodyTop: 40, bodyBottom: 65, tone: 'negative' },
+      { x: 70, wickTop: 55, wickBottom: 100, bodyTop: 60, bodyBottom: 95, tone: 'negative' },
+      { x: 95, wickTop: 90, wickBottom: 120, bodyTop: 95, bodyBottom: 115, tone: 'negative' },
+      { x: 120, wickTop: 70, wickBottom: 115, bodyTop: 75, bodyBottom: 110, tone: 'positive' },
+      // The invalidation candle — closes back up through the zone,
+      // flipping it from a bearish FVG into a bullish IFVG.
+      { x: 145, wickTop: 40, wickBottom: 90, bodyTop: 45, bodyBottom: 85, tone: 'positive' },
+      { x: 170, wickTop: 20, wickBottom: 55, bodyTop: 25, bodyBottom: 50, tone: 'positive' },
+      { x: 195, wickTop: 10, wickBottom: 40, bodyTop: 15, bodyBottom: 35, tone: 'positive' },
+      { x: 220, wickTop: 35, wickBottom: 70, bodyTop: 40, bodyBottom: 65, tone: 'negative' },
+      { x: 245, wickTop: 55, wickBottom: 96, bodyTop: 60, bodyBottom: 91, tone: 'negative' },
+      { x: 270, wickTop: 20, wickBottom: 55, bodyTop: 25, bodyBottom: 50, tone: 'positive' },
+    ],
+  },
+  'balanced-price-range': {
+    kind: 'zones',
+    levels: [
+      { y: 30, label: '1' },
+      { y: 85, label: '0.5' },
+      { y: 140, label: '0' },
+    ],
+    zones: [
+      // The Balanced Price Range itself — the overlap between a bullish
+      // and bearish Fair Value Gap, drawn as a band spanning the chart.
+      { x1: 8, x2: 296, y1: 78, y2: 100, tone: 'range', label: 'BPR' },
+      // The retest — where price comes back to tag the BPR before continuing.
+      { x1: 178, x2: 212, y1: 76, y2: 96, tone: 'retest' },
+    ],
+    candles: [
+      { x: 20, wickTop: 15, wickBottom: 50, bodyTop: 20, bodyBottom: 45, tone: 'negative' },
+      { x: 45, wickTop: 30, wickBottom: 65, bodyTop: 35, bodyBottom: 60, tone: 'negative' },
+      { x: 70, wickTop: 50, wickBottom: 85, bodyTop: 55, bodyBottom: 80, tone: 'negative' },
+      { x: 95, wickTop: 70, wickBottom: 110, bodyTop: 75, bodyBottom: 105, tone: 'negative' },
+      { x: 120, wickTop: 95, wickBottom: 135, bodyTop: 100, bodyBottom: 130, tone: 'negative' },
+      { x: 145, wickTop: 90, wickBottom: 135, bodyTop: 95, bodyBottom: 125, tone: 'positive' },
+      { x: 170, wickTop: 65, wickBottom: 105, bodyTop: 70, bodyBottom: 100, tone: 'positive' },
+      { x: 195, wickTop: 75, wickBottom: 100, bodyTop: 78, bodyBottom: 92, tone: 'negative' },
+      { x: 220, wickTop: 55, wickBottom: 90, bodyTop: 60, bodyBottom: 85, tone: 'positive' },
+      { x: 245, wickTop: 30, wickBottom: 65, bodyTop: 35, bodyBottom: 60, tone: 'positive' },
+      { x: 270, wickTop: 10, wickBottom: 45, bodyTop: 15, bodyBottom: 40, tone: 'positive' },
     ],
   },
 };

@@ -23,23 +23,28 @@ const Footer = () => {
           {/* Brand & Contact */}
           <div className="footer-brand-section">
             <div className="flex items-center space-x-3 mb-6">
-              <img src="/images/Logo2.png" alt="Standard III" className="brand-logo-img" />
+              <img
+                src="/images/logo-siii-wg.png"
+                alt="Standard III"
+                className="brand-logo-img"
+              />
               <span className="h4 brand-wordmark">Standard III Wealth Management</span>
             </div>
             <p className="body-md text-text-muted mb-6 max-w-sm">
-              Independent, fiduciary-minded investment advisory guidance — financial planning,
-              portfolio management, and ongoing market perspective.
+              Independent thinking. Disciplined investing. Wealth management built for the long term.
             </p>
             <div className="flex space-x-4">
               <a
-                href="mailto:marceltegos@gmail.com"
+                href="mailto:consultation@standardthreewealth.com"
                 className="footer-icon-link"
                 aria-label="Email"
               >
                 <Mail size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/standardiiiwealth/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="footer-icon-link"
                 aria-label="LinkedIn"
               >
@@ -85,7 +90,7 @@ const Footer = () => {
             <h4 className="footer-heading">Get In Touch</h4>
             <ul className="footer-links-list">
               <li><Link to="/contact" className="footer-link">Schedule a Consultation</Link></li>
-              <li className="footer-link" style={{ cursor: 'default' }}>marceltegos@gmail.com</li>
+              <li className="footer-link" style={{ cursor: 'default' }}>consultation@standardthreewealth.com</li>
               <li className="footer-link" style={{ cursor: 'default' }}>[Your phone number]</li>
               <li className="footer-link" style={{ cursor: 'default' }}>[Your office address]</li>
             </ul>
