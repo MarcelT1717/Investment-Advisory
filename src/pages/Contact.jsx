@@ -80,7 +80,11 @@ const Contact = () => {
                 <Phone className="w-5 h-5" />
               </div>
               <h3 className="about-card-title">Phone</h3>
-              <p className="about-card-text">[Your phone number]</p>
+              <p className="about-card-text">
+                <a href="tel:+12242479682" className="text-accent-primary hover:underline">
+                  (224) 247-9682
+                </a>
+              </p>
             </div>
 
             <div className="about-info-card">
@@ -88,7 +92,7 @@ const Contact = () => {
                 <MapPin className="w-5 h-5" />
               </div>
               <h3 className="about-card-title">Office</h3>
-              <p className="about-card-text">[Your office address]</p>
+              <p className="about-card-text">Chicago, IL</p>
             </div>
 
             <div className="about-info-card">

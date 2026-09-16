@@ -101,7 +101,7 @@ const Footer = () => {
               </li>
               <li>
                 <MapPin size={16} className="footer-contact-icon" />
-                <span className="footer-link footer-link--static">[Your office address]</span>
+                <span className="footer-link footer-link--static">Chicago, IL</span>
               </li>
             </ul>
           </div>
