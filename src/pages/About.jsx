@@ -123,9 +123,9 @@ const audiences = [
 
 const overviewStats = [
   { value: '2025', label: 'Founded' },
-  { value: '5', label: 'Sectors We Follow Closely' },
-  { value: '2', label: 'Core Investment Focuses — Small Caps & Emerging Markets' },
-  { value: '1', label: 'Standard — Research Before Investment' },
+  { value: '$200,000+', label: 'Assets Under Management' },
+  { value: '8', label: 'Emerging Industries We Research' },
+  { value: '100%', label: 'Independent & Fiduciary-Minded' },
 ];
 
 // Annular-sector path helper for the approach wheel
@@ -175,23 +175,26 @@ const About = () => {
                 <h1 className="library-hero-title">About Us</h1>
                 <p className="library-hero-subtitle">
                   Our approach combines personalized wealth management with independent
-                  investment research. We take the time to understand each client's objectives
-                  while looking beyond conventional portfolios to identify opportunities across
-                  small-cap companies, emerging markets, and evolving industries.
+                  investment research.
                 </p>
-                <nav className="about-section-nav" aria-label="About page sections">
-                  {sectionNav.map((item) => (
-                    <a key={item.href} href={item.href} className="about-section-nav-link">
-                      {item.label}
-                    </a>
-                  ))}
-                </nav>
               </div>
               <HeroParallaxPhoto image="/images/collage-chicago-sunset.jpg" />
             </div>
           </div>
         </div>
       </section>
+
+      {/* Section jump-nav — lives below the hero (not inside the dark block)
+          so the hero itself matches the height of Services/Insights/Contact. */}
+      <div className="container about-section-nav-wrap">
+        <nav className="about-section-nav" aria-label="About page sections">
+          {sectionNav.map((item) => (
+            <a key={item.href} href={item.href} className="about-section-nav-link">
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
 
       {/* Overview — copy on the left, stat grid on the right */}
       <section className="container about-overview-section" id="overview">
