@@ -1559,6 +1559,13 @@ main {
   transform: translateY(-1px);
 }
 
+/* Suppress the browser's default click/focus outline box — hover and
+   .active already carry enough visual feedback on their own. */
+.nav-pill:focus,
+.nav-pill:focus-visible {
+  outline: none;
+}
+
 .nav-pill.active {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
