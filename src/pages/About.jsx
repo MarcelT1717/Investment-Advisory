@@ -78,45 +78,45 @@ const approachSegments = [
 
 const audiences = [
   {
-    segment: '01 — Investment Management',
-    statement: 'Portfolios Built With Purpose.',
-    desc: 'We build and manage portfolios around each client\'s objectives, time horizon, and risk profile — combining personalized wealth management with our independent investment research.',
+    segment: '01 — Research-Driven Investing',
+    statement: 'Conviction Built on Fundamentals.',
+    desc: 'Our core process is grounded in fundamental research — studying emerging market economies, balance sheets, and growth drivers to build conviction before capital is committed.',
     approach: [
-      { title: 'Personalized Portfolio Construction', desc: 'Asset allocation and investment selection are tailored to the individual rather than built around a one-size-fits-all model.' },
-      { title: 'Active Research & Oversight', desc: 'We continually evaluate holdings, market conditions, and new opportunities as the investment landscape evolves.' },
+      { title: 'Structural Growth Scoring', desc: 'A proprietary framework that ranks emerging market companies on balance-sheet quality, revenue durability, and long-term structural growth drivers.' },
+      { title: 'Cross-Border Liquidity Mapping', desc: 'We assess capital flows and currency dynamics across markets to understand how liquidity conditions may affect valuations and timing.' },
     ],
-    whoWeServeLabel: 'What We Manage',
+    whoWeServeLabel: 'What We Analyze',
     whoWeServe: [
-      { title: 'Individuals & Families', desc: 'Individual, joint, retirement, trust, and custodial investment accounts.' },
-      { title: 'Businesses & Entities', desc: 'Investment management for businesses, partnerships, trusts, and other entities.' },
+      { title: 'Emerging & Frontier Markets', desc: 'Economies and industries earlier in their growth cycle, where fundamentals research can uncover mispriced opportunity.' },
+      { title: 'Company Fundamentals', desc: 'Balance sheets, cash flow durability, and competitive positioning behind every name we research.' },
     ],
   },
   {
-    segment: '02 — Our Investment Focus',
-    statement: 'Looking Where the Market Looks Less.',
-    desc: 'We dedicate much of our research to areas where less coverage, earlier-stage growth, and structural change may create compelling long-term investment opportunities.',
+    segment: '02 — Classic Strategies',
+    statement: 'Time-Tested Strategies, Actively Managed.',
+    desc: 'Alongside our fundamental research, we apply established institutional strategies — long/short equity, convertible bond arbitrage, and global macro — to manage risk and pursue return across market environments.',
     approach: [
-      { title: 'Small-Cap Companies', desc: 'We research businesses earlier in their growth cycle, where greater market inefficiencies may create opportunities for differentiated investment ideas.' },
-      { title: 'Emerging Markets', desc: 'We study developing economies, industries, and companies positioned to benefit from long-term shifts in global growth.' },
+      { title: 'Long/Short Equity', desc: 'Pairing long positions in higher-conviction names against short positions elsewhere to manage net market exposure.' },
+      { title: 'Convertible Bond Arbitrage', desc: 'Seeking to capture pricing inefficiencies between a convertible bond and the equity it converts into.' },
     ],
-    whoWeServeLabel: 'Where We Look',
+    whoWeServeLabel: 'Strategies We Employ',
     whoWeServe: [
-      { title: 'Five Core Sectors', desc: 'Focused research allows us to develop deeper knowledge of the industries and businesses we follow.' },
-      { title: 'Emerging Industries & Themes', desc: 'We monitor technological, economic, and demographic changes that may reshape industries over time.' },
+      { title: 'Global Macro', desc: 'Positioning across equities, rates, currencies, and commodities based on macroeconomic and policy themes.' },
+      { title: 'Relative Value', desc: 'Identifying and trading pricing dislocations between related securities.' },
     ],
   },
   {
-    segment: '03 — Research & Intelligence',
-    statement: 'Know What You Own — and Why.',
-    desc: 'Research is at the center of our investment process. Clients gain insight into the analysis, market views, and thinking that inform our portfolio decisions.',
+    segment: '03 — Algorithmic Trading',
+    statement: 'Systematic Signals, Rigorously Tested.',
+    desc: 'We develop proprietary trading algorithms in-house and backtest each one against historical market data before it\'s ever used with client capital.',
     approach: [
-      { title: 'Fundamental Research', desc: 'We evaluate businesses, industries, financials, competitive positioning, and long-term growth drivers before forming an investment view.' },
-      { title: 'Market & Cycle Analysis', desc: 'We consider valuations, market cycles, sector dynamics, and the broader economic environment alongside company-level research.' },
+      { title: 'Proprietary Algorithm Development', desc: 'Building rules-based models designed to identify and act on repeatable patterns in price and volume.' },
+      { title: 'Historical Backtesting & Validation', desc: 'Stress-testing every strategy against years of historical data across varied market conditions before deployment.' },
     ],
-    whoWeServeLabel: 'What Clients Receive',
+    whoWeServeLabel: 'How We Validate',
     whoWeServe: [
-      { title: 'Investment Research', desc: 'Access to selected company, sector, and thematic research produced by Standard III.' },
-      { title: 'Market Updates', desc: 'Regular commentary on markets, portfolio themes, and developments we believe are worth watching.' },
+      { title: 'Simulated & Paper Trading', desc: 'Forward-testing algorithms under live market conditions without live capital before they go further.' },
+      { title: 'Ongoing Monitoring', desc: 'Continuously tracking live algorithm performance and retiring or refining models that underperform.' },
     ],
   },
 ];
@@ -132,6 +132,24 @@ const overviewStats = [
 const polar = (cx, cy, r, deg) => {
   const a = ((deg - 90) * Math.PI) / 180;
   return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+};
+
+// Splits a sector label onto two roughly-balanced lines once it's too long
+// to fit one line within a 45°-wide slice — keeps names like "Energy,
+// Batteries & Minerals" from overflowing past the wheel's edges.
+const wrapLabel = (name) => {
+  const words = name.split(' ');
+  if (words.length === 1 || name.length <= 13) return [name];
+  let bestIdx = 1;
+  let bestDiff = Infinity;
+  for (let i = 1; i < words.length; i++) {
+    const diff = Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestIdx = i;
+    }
+  }
+  return [words.slice(0, bestIdx).join(' '), words.slice(bestIdx).join(' ')];
 };
 
 const donutSegment = (cx, cy, rOuter, rInner, start, end) => {
@@ -274,9 +292,9 @@ const About = () => {
         </div>
       </section>
 
-      {/* Who We Serve — cream profile card paired with a matching
+      {/* Who We Serve — black profile card paired with a matching
           "Our Approach" / "Who We Serve" detail column, one row per
-          audience segment. Placeholder copy — content pending. */}
+          audience segment. */}
       <section className="container about-audiences-section" id="who-we-serve">
         <div className="about-audiences-grid">
           {audiences.map((a) => (
@@ -289,7 +307,6 @@ const About = () => {
                 </span>
                 <h3 className="about-audience-statement">{a.statement}</h3>
                 <p className="about-audience-desc">{a.desc}</p>
-                <a href="#" className="about-audience-link">Learn more here</a>
               </div>
 
               <div className="about-audience-detail">
@@ -366,7 +383,16 @@ const About = () => {
                     dominantBaseline="middle"
                     x-excluded="true"
                   >
-                    {seg.name}
+                    {wrapLabel(seg.name).map((line, li, arr) => (
+                      <tspan
+                        key={li}
+                        x={labelPos.x}
+                        dy={li === 0 ? (arr.length > 1 ? '-0.5em' : 0) : '1.05em'}
+                        x-excluded="true"
+                      >
+                        {line}
+                      </tspan>
+                    ))}
                   </text>
                 </g>
               );

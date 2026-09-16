@@ -7398,7 +7398,7 @@ section {
 }
 
 .about-audience-card {
-  background: rgb(250, 246, 240);
+  background: rgb(8, 10, 14);
   padding: 40px 32px 32px;
   border-bottom: 1px solid var(--border-subtle);
   border-left: 3px solid var(--accent-primary);
@@ -7408,7 +7408,7 @@ section {
   display: block;
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 22px;
-  color: var(--text-primary);
+  color: rgb(255, 255, 255);
   margin-bottom: 20px;
 }
 
@@ -7421,25 +7421,14 @@ section {
   font-weight: 400;
   font-size: 28px;
   line-height: 1.25;
-  color: var(--text-primary);
+  color: rgb(255, 255, 255);
   margin-bottom: 20px;
 }
 
 .about-audience-desc {
   font-size: 15px;
   line-height: 1.75;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-
-.about-audience-link {
-  font-size: 14.5px;
-  color: var(--accent-primary);
-  text-decoration: underline;
-}
-
-.about-audience-link:hover {
-  color: var(--accent-hover);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .about-audience-detail {
