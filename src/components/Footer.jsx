@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Linkedin, Facebook } from 'lucide-react';
+import { Mail, Linkedin, Facebook, Phone, MapPin } from 'lucide-react';
 import { services } from '../lib/servicesData';
 
 const Footer = () => {
@@ -88,11 +88,21 @@ const Footer = () => {
           {/* Contact */}
           <div className="footer-sectors-section">
             <h4 className="footer-heading">Get In Touch</h4>
-            <ul className="footer-links-list">
-              <li><Link to="/contact" className="footer-link">Schedule a Consultation</Link></li>
-              <li className="footer-link" style={{ cursor: 'default' }}>consultation@standardthreewealth.com</li>
-              <li className="footer-link" style={{ cursor: 'default' }}>[Your phone number]</li>
-              <li className="footer-link" style={{ cursor: 'default' }}>[Your office address]</li>
+            <ul className="footer-contact-list">
+              <li>
+                <Mail size={16} className="footer-contact-icon" />
+                <a href="mailto:consultation@standardthreewealth.com" className="footer-link">
+                  consultation@standardthreewealth.com
+                </a>
+              </li>
+              <li>
+                <Phone size={16} className="footer-contact-icon" />
+                <a href="tel:+12242479682" className="footer-link">(224) 247-9682</a>
+              </li>
+              <li>
+                <MapPin size={16} className="footer-contact-icon" />
+                <span className="footer-link footer-link--static">[Your office address]</span>
+              </li>
             </ul>
           </div>
         </div>

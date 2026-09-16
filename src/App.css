@@ -2104,10 +2104,12 @@ section {
 
 /* Every page except Home gets a plain solid-black footer instead of the
    building-photo band, so it doesn't repeat the same image used across
-   the library-hero pages and their closing CTAs. */
+   the library-hero pages and their closing CTAs. Plain black (not the
+   old navy) to match the site's black/gold colorway, with a thin gold
+   top edge tying it back to that same colorway. */
 .footer-redesign.footer-redesign--plain {
-  background: rgb(17, 24, 39);
-  border-top: 1px solid var(--border-subtle);
+  background: rgb(8, 10, 14);
+  border-top: 2px solid var(--accent-primary);
 }
 
 .footer-redesign > .container {
@@ -2183,6 +2185,31 @@ section {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-contact-icon {
+  flex-shrink: 0;
+  color: var(--accent-primary);
+}
+
+.footer-link--static {
+  cursor: default;
+}
+
+.footer-link--static:hover {
+  color: var(--text-muted);
 }
 
 /* Multi-column flow rather than a grid — service names vary a lot in
