@@ -3,6 +3,17 @@
 // to make its card open that file in a new tab instead of doing nothing.
 export const insights = [
   {
+    id: 11,
+    title: 'EVTOL Sector Overview',
+    description:
+      'Why flying taxis deserve more attention than they\'re getting — a look at Joby, Archer, Eve, and the other public eVTOL players racing toward FAA certification.',
+    category: 'Market Commentary',
+    date: '2026-03-02',
+    readTime: '5 min read',
+    image: '/images/evtol-article-image.webp',
+    fileUrl: '/EVTOL Article.pdf',
+  },
+  {
     id: 9,
     title: 'Reading the Candles',
     description:

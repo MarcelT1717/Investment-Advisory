@@ -112,7 +112,7 @@ const Services = () => {
             <div className="advantage-photo-wrap">
               <div
                 className="advantage-photo"
-                style={{ backgroundImage: "url('/images/service-stock-ticker.jpg')" }}
+                style={{ backgroundImage: "url('/images/advantage-photo.jpg')" }}
               ></div>
             </div>
             <h2 className="section-title advantage-title">
