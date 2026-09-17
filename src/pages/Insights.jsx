@@ -4,7 +4,6 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { insights } from '../lib/insightsData';
 import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 import BlogCarousel from '../components/BlogCarousel';
-import PatternIllustration from '../components/PatternIllustration';
 
 const Insights = () => {
   return (
@@ -55,9 +54,9 @@ const Insights = () => {
                 Understand What the Data Is Telling You
               </h2>
               <p className="about-intro-desc">
-                Learn how indicators such as RSI, MACD, moving averages, Bollinger Bands, and
-                volume can be used to evaluate momentum, trends, volatility, and changing market
-                conditions.
+                Learn how indicators such as the ADX, RSI, MACD, moving averages, and volume can
+                be used to measure trend strength, momentum, and changing market conditions — like
+                the ADX crossover shown here signaling a shift from ranging to trending.
               </p>
               <Link to="/insights/market-intelligence" className="about-intro-link">
                 Explore Technical Indicators
@@ -65,8 +64,12 @@ const Insights = () => {
               </Link>
             </div>
 
-            <div className="about-intro-photo firm-photo market-lab-photo">
-              <PatternIllustration patternId="macd" />
+            <div className="about-intro-photo firm-photo">
+              <img
+                src="/images/adx_indicator_example (1).png"
+                alt="Price chart with the ADX trend-strength indicator"
+                className="firm-photo-img"
+              />
             </div>
           </div>
         </div>
@@ -75,8 +78,12 @@ const Insights = () => {
       <section className="team-section">
         <div className="container">
           <div className="firm-grid team-grid">
-            <div className="about-intro-photo firm-photo market-lab-photo">
-              <PatternIllustration patternId="engulfing" />
+            <div className="about-intro-photo firm-photo">
+              <img
+                src="/images/bullish_engulfing_candle.png"
+                alt="Bullish engulfing candlestick pattern example"
+                className="firm-photo-img"
+              />
             </div>
 
             <div className="firm-copy">
@@ -88,8 +95,9 @@ const Insights = () => {
                 Learn to Read Price Action
               </h2>
               <p className="about-intro-desc">
-                Understand common candlestick formations and what they can reveal about buying
-                pressure, selling pressure, momentum, and potential shifts in market sentiment.
+                Understand common candlestick formations — like the bullish engulfing pattern
+                shown here — and what they can reveal about buying pressure, selling pressure,
+                momentum, and potential shifts in market sentiment.
               </p>
               <Link to="/insights/market-intelligence" className="about-intro-link">
                 Explore Candlestick Patterns
@@ -106,24 +114,28 @@ const Insights = () => {
             <div className="firm-copy">
               <div className="about-intro-eyebrow">
                 <Sparkles className="w-4 h-4" />
-                ICT Concepts
+                Chart Patterns
               </div>
               <h2 className="about-intro-title">
-                Understand the Structure Behind Price Moves
+                Recognize Setups Before They Break
               </h2>
               <p className="about-intro-desc">
-                Explore concepts such as fair value gaps, order blocks, liquidity, and market
-                structure shifts to better understand how price moves between key levels and
-                where imbalances may get filled.
+                Learn to recognize recurring chart patterns — like the ascending triangle shown
+                here — where a flat resistance line and a rising support of higher lows often
+                signal a bullish breakout once price clears resistance and holds.
               </p>
               <Link to="/insights/market-intelligence" className="about-intro-link">
-                Explore ICT Concepts
+                Explore Chart Patterns
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
             <div className="about-intro-photo firm-photo">
-              <span>[Placeholder — photo]</span>
+              <img
+                src="/images/ascending_triangle.png"
+                alt="Ascending triangle chart pattern example"
+                className="firm-photo-img"
+              />
             </div>
           </div>
         </div>
