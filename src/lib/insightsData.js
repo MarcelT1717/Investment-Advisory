@@ -14,6 +14,17 @@ export const insights = [
     fileUrl: '/candlesticks_article.pdf',
   },
   {
+    id: 10,
+    title: 'Long/Short Equity',
+    description:
+      'The strategy that started the hedge fund industry — gross vs. net exposure, pair trading, and why long/short equity still works today.',
+    category: 'Market Commentary',
+    date: '2026-09-17',
+    readTime: '6 min read',
+    image: '/images/long-short-image.webp',
+    fileUrl: '/long_short_equity_article.pdf',
+  },
+  {
     id: 7,
     title: 'Emerging Defense Technology Sector Analysis',
     description:
@@ -21,7 +32,7 @@ export const insights = [
     category: 'Market Commentary',
     date: '2026-07-15',
     readTime: '10 min read',
-    image: '/images/service-stock-research.jpg',
+    image: '/images/emerging-defense-image.jpeg',
     fileUrl: '/Emerging Defense Technology Sector Analysis.pdf',
   },
   {
@@ -32,7 +43,7 @@ export const insights = [
     category: 'Market Commentary',
     date: '2025-09-11',
     readTime: '8 min read',
-    image: '/images/service-market-research.jpg',
+    image: '/images/emerging-industries-image.jpg',
     fileUrl: '/High-Growth Stocks in Emerging Industries.pdf',
   },
   {
