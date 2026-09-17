@@ -3,6 +3,17 @@
 // to make its card open that file in a new tab instead of doing nothing.
 export const insights = [
   {
+    id: 12,
+    title: 'Weekly Market Update: February 23–27',
+    description:
+      'A look back at the week\'s market-moving news — CoreWeave\'s post-earnings selloff, a possible rotation into nuclear small-caps, and a snapshot of the macro data shaping Fed expectations.',
+    category: 'Economic Outlook',
+    date: '2026-03-01',
+    readTime: '6 min read',
+    image: '/images/service-stock-ticker.jpg',
+    fileUrl: '/Market Update 223 - 227.pdf',
+  },
+  {
     id: 11,
     title: 'EVTOL Sector Overview',
     description:
