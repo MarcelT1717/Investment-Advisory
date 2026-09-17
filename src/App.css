@@ -543,9 +543,11 @@
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 20px;
+  background: rgba(8, 10, 14, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0;
   padding: 64px 48px;
   position: relative;
   overflow: hidden;
@@ -565,28 +567,39 @@
   width: 56px;
   height: 56px;
   margin: 0 auto 24px;
-  background: var(--accent-bg);
-  border-radius: 14px;
+  background: var(--accent-primary);
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-primary);
+  color: rgb(8, 10, 14);
 }
 
 .services-cta-title {
   font-family: 'DM Serif Display', Georgia, serif;
   font-weight: 400;
   font-size: clamp(24px, 2.6vw, 30px);
-  color: var(--text-primary);
+  color: rgb(255, 255, 255);
   margin-bottom: 14px;
 }
 
 .services-cta-desc {
   font-size: 15px;
   line-height: 1.75;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.72);
   max-width: 420px;
   margin: 0 auto 32px;
+}
+
+/* Match the black/gold, sharp-cornered button used by the Home page's
+   newsletter signup instead of the site's default rounded gold pill. */
+.services-cta-card .btn-primary {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.services-cta-card .btn-primary:hover {
+  box-shadow: 0 8px 24px rgba(198, 170, 131, 0.3);
 }
 
 @media (max-width: 640px) {
