@@ -58,7 +58,7 @@ const Services = () => {
                   Financial planning and portfolio management built around your goals
                 </p>
               </div>
-              <HeroParallaxPhoto image="/images/service-investment-management.jpg" />
+              <HeroParallaxPhoto image="/images/services-hero-image.png" />
             </div>
           </div>
         </div>
