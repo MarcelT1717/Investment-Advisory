@@ -171,13 +171,17 @@ const Services = () => {
 
       <section className={`container pb-40 reveal-section ${ctaVisible ? 'revealed' : ''}`} ref={ctaRef}>
         <div className="services-cta-card">
-          <div className="services-cta-icon">
-            <CalendarCheck className="w-6 h-6" />
+          <div className="services-cta-copy">
+            <div className="services-cta-icon">
+              <CalendarCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <h2 className="services-cta-title">Not Sure Which Service Fits?</h2>
+              <p className="services-cta-desc">
+                That's exactly what the first conversation is for — no obligation, just a chance to talk it through.
+              </p>
+            </div>
           </div>
-          <h2 className="services-cta-title">Not Sure Which Service Fits?</h2>
-          <p className="services-cta-desc">
-            That's exactly what the first conversation is for — no obligation, just a chance to talk it through.
-          </p>
           <button className="btn-primary btn-large" onClick={openConsultationModal} data-testid="services-cta-button">
             <CalendarCheck className="w-4 h-4 mr-2" />
             Schedule a Consultation

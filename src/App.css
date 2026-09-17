@@ -537,36 +537,36 @@
   .podium-base { height: 36px !important; }
 }
 
-/* Services page closing CTA — centered card, same visual language as the
-   rest of the page (accent icon badge, serif heading). */
+/* Services page closing CTA — wide bar, same shape and black/gold
+   treatment as the Home page's newsletter signup bar (copy on the left,
+   action on the right) instead of a tall centered card. */
 .services-cta-card {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  text-align: left;
   background: rgba(8, 10, 14, 0.86);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 3px solid var(--accent-primary);
   border-radius: 0;
-  padding: 64px 48px;
+  padding: 40px 48px;
   position: relative;
   overflow: hidden;
 }
 
-.services-cta-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+.services-cta-copy {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .services-cta-icon {
   width: 56px;
   height: 56px;
-  margin: 0 auto 24px;
+  flex-shrink: 0;
   background: var(--accent-primary);
   border-radius: 0;
   display: flex;
@@ -578,17 +578,29 @@
 .services-cta-title {
   font-family: 'DM Serif Display', Georgia, serif;
   font-weight: 400;
-  font-size: clamp(24px, 2.6vw, 30px);
+  font-size: clamp(22px, 2.4vw, 26px);
   color: rgb(255, 255, 255);
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .services-cta-desc {
   font-size: 15px;
-  line-height: 1.75;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.72);
   max-width: 420px;
-  margin: 0 auto 32px;
+}
+
+@media (max-width: 700px) {
+  .services-cta-card {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 24px;
+    padding: 36px 28px;
+  }
+  .services-cta-copy {
+    flex-direction: column;
+  }
 }
 
 /* Match the black/gold, sharp-cornered button used by the Home page's
@@ -600,12 +612,6 @@
 
 .services-cta-card .btn-primary:hover {
   box-shadow: 0 8px 24px rgba(198, 170, 131, 0.3);
-}
-
-@media (max-width: 640px) {
-  .services-cta-card {
-    padding: 48px 28px;
-  }
 }
 
 /* Our Strategy — Services page, right under the hero. Two equal columns:
