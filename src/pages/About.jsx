@@ -1,5 +1,8 @@
 import React from 'react';
-import { Quote, User, ChevronDown } from 'lucide-react';
+import {
+  Quote, User, ChevronDown,
+  Plane, Atom, Bot, Rocket, BatteryCharging, BrainCircuit, HeartPulse, Coins,
+} from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useGsapStagger } from '../hooks/useGsapStagger';
 import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
@@ -67,14 +70,14 @@ const approachBullets = [
 ];
 
 const approachSegments = [
-  { name: 'Aviation & Drones', desc: 'Advanced aviation, autonomous aircraft, drones, and next-generation mobility.' },
-  { name: 'Quantum Computing', desc: 'Quantum hardware, enabling technologies, and the emerging computing ecosystem.' },
-  { name: 'Robotics & Automation', desc: 'Industrial automation, autonomous systems, robotics, and intelligent machines.' },
-  { name: 'Space & Defense', desc: 'Launch, satellites, space infrastructure, defense technology, and national-security applications.' },
-  { name: 'Energy, Batteries & Minerals', desc: 'Energy infrastructure, battery technology, storage, critical minerals, and the resources powering electrification.' },
-  { name: 'AI & Data Centers', desc: 'Artificial intelligence, semiconductors, computing infrastructure, data centers, and supporting power demand.' },
-  { name: 'Healthcare & Biotech', desc: 'Innovative healthcare companies, medical technologies, biotechnology, and emerging treatments.' },
-  { name: 'Digital Assets & Finance', desc: 'Financial technology, digital assets, blockchain infrastructure, exchanges, and the evolution of financial markets.' },
+  { name: 'Aviation & Drones', icon: Plane, desc: 'Advanced aviation, autonomous aircraft, drones, and next-generation mobility.' },
+  { name: 'Quantum Computing', icon: Atom, desc: 'Quantum hardware, enabling technologies, and the emerging computing ecosystem.' },
+  { name: 'Robotics & Automation', icon: Bot, desc: 'Industrial automation, autonomous systems, robotics, and intelligent machines.' },
+  { name: 'Space & Defense', icon: Rocket, desc: 'Launch, satellites, space infrastructure, defense technology, and national-security applications.' },
+  { name: 'Energy, Batteries & Minerals', icon: BatteryCharging, desc: 'Energy infrastructure, battery technology, storage, critical minerals, and the resources powering electrification.' },
+  { name: 'AI & Data Centers', icon: BrainCircuit, desc: 'Artificial intelligence, semiconductors, computing infrastructure, data centers, and supporting power demand.' },
+  { name: 'Healthcare & Biotech', icon: HeartPulse, desc: 'Innovative healthcare companies, medical technologies, biotechnology, and emerging treatments.' },
+  { name: 'Digital Assets & Finance', icon: Coins, desc: 'Financial technology, digital assets, blockchain infrastructure, exchanges, and the evolution of financial markets.' },
 ];
 
 const audiences = [
@@ -129,52 +132,13 @@ const overviewStats = [
   { value: '100%', label: 'Independent & Fiduciary-Minded' },
 ];
 
-// Annular-sector path helper for the approach wheel
-const polar = (cx, cy, r, deg) => {
-  const a = ((deg - 90) * Math.PI) / 180;
-  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
-};
-
-// Splits a sector label onto two roughly-balanced lines once it's too long
-// to fit one line within a 45°-wide slice — keeps names like "Energy,
-// Batteries & Minerals" from overflowing past the wheel's edges.
-const wrapLabel = (name) => {
-  const words = name.split(' ');
-  if (words.length === 1 || name.length <= 13) return [name];
-  let bestIdx = 1;
-  let bestDiff = Infinity;
-  for (let i = 1; i < words.length; i++) {
-    const diff = Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length);
-    if (diff < bestDiff) {
-      bestDiff = diff;
-      bestIdx = i;
-    }
-  }
-  return [words.slice(0, bestIdx).join(' '), words.slice(bestIdx).join(' ')];
-};
-
-const donutSegment = (cx, cy, rOuter, rInner, start, end) => {
-  const p1 = polar(cx, cy, rOuter, start);
-  const p2 = polar(cx, cy, rOuter, end);
-  const p3 = polar(cx, cy, rInner, end);
-  const p4 = polar(cx, cy, rInner, start);
-  const large = end - start > 180 ? 1 : 0;
-  return [
-    `M ${p1.x} ${p1.y}`,
-    `A ${rOuter} ${rOuter} 0 ${large} 1 ${p2.x} ${p2.y}`,
-    `L ${p3.x} ${p3.y}`,
-    `A ${rInner} ${rInner} 0 ${large} 0 ${p4.x} ${p4.y}`,
-    'Z',
-  ].join(' ');
-};
-
 const About = () => {
   const [activeValue, setActiveValue] = React.useState(4);
-  const [activeSegment, setActiveSegment] = React.useState(null);
   const [heroRef, heroVisible] = useScrollReveal();
   const [leadershipRef, leadershipVisible] = useScrollReveal();
   const [quoteRef, quoteVisible] = useScrollReveal();
   const overviewStatsRef = useGsapStagger('.about-overview-stat');
+  const sectorGridRef = useGsapStagger('.about-sector-card');
   const audiencesRef = useGsapStagger('.about-audience-card, .about-audience-detail');
 
   const [openBio, setOpenBio] = React.useState(null);
@@ -336,7 +300,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Our Approach — bullets + interactive sector wheel */}
+      {/* Our Approach — bullets + a grid of the sectors we focus on */}
       <section className="container about-approach-section" id="approach">
         <h2 className="section-title about-approach-title">Our Approach</h2>
         <ul className="about-approach-bullets">
@@ -348,74 +312,19 @@ const About = () => {
           ))}
         </ul>
 
-        <div className="about-wheel-wrap">
-          {/* x-excluded opts out of the dev visual-edits babel plugin, which
-              otherwise wraps mapped children in an HTML <span> — invalid
-              inside SVG, so the segments render with no geometry. */}
-          <svg
-            className="about-wheel"
-            viewBox="0 0 460 460"
-            role="img"
-            aria-label="Sectors we invest across"
-            x-excluded="true"
-          >
-            {approachSegments.map((seg, i) => {
-              const start = i * 45;
-              const end = start + 45;
-              const mid = start + 22.5;
-              const labelPos = polar(230, 230, 152, mid);
-              // Radial text reads upside down between 90° and 270°
-              const flip = mid > 90 && mid < 270;
-              return (
-                <g
-                  key={seg.name}
-                  className={`about-wheel-seg ${activeSegment === i ? 'is-active' : ''}`}
-                  onMouseEnter={() => setActiveSegment(i)}
-                  onFocus={() => setActiveSegment(i)}
-                  onClick={() => setActiveSegment(i)}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={seg.name}
-                >
-                  <path d={donutSegment(230, 230, 190, 115, start + 0.6, end - 0.6)} />
-                  <text
-                    x={labelPos.x}
-                    y={labelPos.y}
-                    transform={`rotate(${flip ? mid + 180 : mid} ${labelPos.x} ${labelPos.y})`}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    x-excluded="true"
-                  >
-                    {wrapLabel(seg.name).map((line, li, arr) => (
-                      <tspan
-                        key={li}
-                        x={labelPos.x}
-                        dy={li === 0 ? (arr.length > 1 ? '-0.5em' : 0) : '1.05em'}
-                        x-excluded="true"
-                      >
-                        {line}
-                      </tspan>
-                    ))}
-                  </text>
-                </g>
-              );
-            })}
-
-            <circle className="about-wheel-ring" cx="230" cy="230" r="205" />
-
-            <foreignObject x="105" y="170" width="250" height="130">
-              <div className="about-wheel-center">
-                {activeSegment === null ? (
-                  <span className="about-wheel-hint">Select a sector for more information</span>
-                ) : (
-                  <>
-                    <span className="about-wheel-center-name">{approachSegments[activeSegment].name}</span>
-                    <span className="about-wheel-center-desc">{approachSegments[activeSegment].desc}</span>
-                  </>
-                )}
+        <div className="about-sector-grid" ref={sectorGridRef}>
+          {approachSegments.map((seg) => {
+            const SegIcon = seg.icon;
+            return (
+              <div key={seg.name} className="about-sector-card">
+                <div className="about-sector-card-icon">
+                  <SegIcon className="w-5 h-5" />
+                </div>
+                <h3 className="about-sector-card-name">{seg.name}</h3>
+                <p className="about-sector-card-desc">{seg.desc}</p>
               </div>
-            </foreignObject>
-          </svg>
+            );
+          })}
         </div>
       </section>
 
