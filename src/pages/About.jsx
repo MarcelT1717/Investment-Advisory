@@ -175,7 +175,7 @@ const About = () => {
   const [leadershipRef, leadershipVisible] = useScrollReveal();
   const [quoteRef, quoteVisible] = useScrollReveal();
   const overviewStatsRef = useGsapStagger('.about-overview-stat');
-  const audiencesRef = useGsapStagger('.about-audience-card, .about-audience-detail', { y: 32, stagger: 0.1 });
+  const audiencesRef = useGsapStagger('.about-audience-card, .about-audience-detail');
 
   const [openBio, setOpenBio] = React.useState(null);
 

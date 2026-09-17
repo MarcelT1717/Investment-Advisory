@@ -41,7 +41,7 @@ const Services = () => {
   const [ctaRef, ctaVisible] = useScrollReveal();
   const strategyDetailsRef = useGsapStagger('.strategy-preview-detail');
   const advantageColumnsRef = useGsapStagger('.advantage-col');
-  const processListRef = useGsapStagger('.process-row', { y: 40, stagger: 0.12 });
+  const processListRef = useGsapStagger('.process-row');
 
   return (
     <div className="min-h-screen">
