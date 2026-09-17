@@ -4251,8 +4251,10 @@ section {
   padding: 48px;
   max-width: 480px;
   width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
-  box-shadow: 
+  box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.6),
     0 0 40px rgba(198, 170, 131, 0.15);
   animation: slideUp 0.3s ease-out;
