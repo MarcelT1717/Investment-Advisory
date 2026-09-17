@@ -1,6 +1,7 @@
 import React from 'react';
 import { Quote, User, ChevronDown } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useGsapStagger } from '../hooks/useGsapStagger';
 import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 
 const leadership = [
@@ -173,6 +174,8 @@ const About = () => {
   const [heroRef, heroVisible] = useScrollReveal();
   const [leadershipRef, leadershipVisible] = useScrollReveal();
   const [quoteRef, quoteVisible] = useScrollReveal();
+  const overviewStatsRef = useGsapStagger('.about-overview-stat');
+  const audiencesRef = useGsapStagger('.about-audience-card, .about-audience-detail', { y: 32, stagger: 0.1 });
 
   const [openBio, setOpenBio] = React.useState(null);
 
@@ -238,7 +241,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="about-overview-stats">
+          <div className="about-overview-stats" ref={overviewStatsRef}>
             {overviewStats.map((stat) => (
               <div key={stat.label} className="about-overview-stat">
                 <span className="about-overview-stat-value">{stat.value}</span>
@@ -296,7 +299,7 @@ const About = () => {
           "Our Approach" / "Who We Serve" detail column, one row per
           audience segment. */}
       <section className="container about-audiences-section" id="who-we-serve">
-        <div className="about-audiences-grid">
+        <div className="about-audiences-grid" ref={audiencesRef}>
           {audiences.map((a) => (
             <React.Fragment key={a.segment}>
               <div className="about-audience-card">

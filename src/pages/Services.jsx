@@ -2,6 +2,7 @@ import React from 'react';
 import { CalendarCheck } from 'lucide-react';
 import { useConsultation } from '../context/ConsultationContext';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useGsapStagger } from '../hooks/useGsapStagger';
 import { services } from '../lib/servicesData';
 import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 
@@ -38,6 +39,9 @@ const strategyDetails = [
 const Services = () => {
   const { openConsultationModal } = useConsultation();
   const [ctaRef, ctaVisible] = useScrollReveal();
+  const strategyDetailsRef = useGsapStagger('.strategy-preview-detail');
+  const advantageColumnsRef = useGsapStagger('.advantage-col');
+  const processListRef = useGsapStagger('.process-row', { y: 40, stagger: 0.12 });
 
   return (
     <div className="min-h-screen">
@@ -86,7 +90,7 @@ const Services = () => {
             </div>
           </div>
 
-          <div className="strategy-preview-details">
+          <div className="strategy-preview-details" ref={strategyDetailsRef}>
             {strategyDetails.map((d) => (
               <div key={d.label} className="strategy-preview-detail">
                 <h4>{d.label}</h4>
@@ -118,7 +122,7 @@ const Services = () => {
             </h2>
           </div>
 
-          <div className="advantage-columns">
+          <div className="advantage-columns" ref={advantageColumnsRef}>
             {advantages.map((a) => (
               <div key={a.title} className="advantage-col">
                 <h3 className="advantage-col-title">{a.title}</h3>
@@ -149,7 +153,7 @@ const Services = () => {
           </div>
         </div>
 
-        <div className="process-list">
+        <div className="process-list" ref={processListRef}>
           {services.map((service) => (
             <div key={service.id} className="process-row" id={service.id}>
               <div
