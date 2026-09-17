@@ -64,13 +64,24 @@ export const insights = [
   },
   {
     id: 7,
-    title: 'eVTOL Sector Analysis',
+    title: 'Emerging Defense Technology Sector Analysis',
     description:
-      'A look at the electric vertical takeoff and landing (eVTOL) sector — the companies, technology, and market dynamics shaping this emerging space.',
+      'An in-depth look at the emerging drone and autonomous systems industry, examining Ondas, Red Cat Holdings, and Unusual Machines.',
     category: 'Market Commentary',
-    date: '2026-09-15',
-    readTime: '5 min read',
+    date: '2026-07-15',
+    readTime: '10 min read',
     image: '/images/service-stock-research.jpg',
-    fileUrl: '/EVTOL Sector Analysis.pdf',
+    fileUrl: '/Emerging Defense Technology Sector Analysis.pdf',
+  },
+  {
+    id: 8,
+    title: 'High-Growth Stocks in Emerging Industries',
+    description:
+      'A survey of high-growth public companies and ETFs across eVTOL, quantum computing, space technology, and biotech.',
+    category: 'Market Commentary',
+    date: '2025-09-11',
+    readTime: '8 min read',
+    image: '/images/service-market-research.jpg',
+    fileUrl: '/High-Growth Stocks in Emerging Industries.pdf',
   },
 ];
