@@ -20,7 +20,7 @@ const MarketIntelligence = () => (
                 the topics on the left, and select one to see how it works.
               </p>
             </div>
-            <HeroParallaxPhoto image="/images/service-stock-ticker.jpg" />
+            <HeroParallaxPhoto image="/images/market-intelligence-hero.jpeg" />
           </div>
         </div>
       </div>
