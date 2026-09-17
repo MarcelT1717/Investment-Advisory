@@ -236,7 +236,7 @@ const Home = () => {
         <div className="container">
           <div className={`firm-grid team-grid reveal-section ${teamVisible ? 'revealed' : ''}`}>
             <div className="about-intro-photo firm-photo">
-              <img src="/images/service-stock-ticker.jpg" alt="Live stock market data board" className="firm-photo-img" />
+              <img src="/images/hidden-opp-image.jpg" alt="Global market data with an emphasis on underfollowed opportunity" className="firm-photo-img" />
             </div>
             <div className="firm-copy">
               <div className="about-intro-eyebrow">
