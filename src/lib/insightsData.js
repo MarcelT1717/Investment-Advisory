@@ -3,6 +3,28 @@
 // to make its card open that file in a new tab instead of doing nothing.
 export const insights = [
   {
+    id: 7,
+    title: 'Emerging Defense Technology Sector Analysis',
+    description:
+      'An in-depth look at the emerging drone and autonomous systems industry, examining Ondas, Red Cat Holdings, and Unusual Machines.',
+    category: 'Market Commentary',
+    date: '2026-07-15',
+    readTime: '10 min read',
+    image: '/images/service-stock-research.jpg',
+    fileUrl: '/Emerging Defense Technology Sector Analysis.pdf',
+  },
+  {
+    id: 8,
+    title: 'High-Growth Stocks in Emerging Industries',
+    description:
+      'A survey of high-growth public companies and ETFs across eVTOL, quantum computing, space technology, and biotech.',
+    category: 'Market Commentary',
+    date: '2025-09-11',
+    readTime: '8 min read',
+    image: '/images/service-market-research.jpg',
+    fileUrl: '/High-Growth Stocks in Emerging Industries.pdf',
+  },
+  {
     id: 1,
     title: 'How I Think About Market Volatility',
     description:
@@ -61,27 +83,5 @@ export const insights = [
     date: '2026-05-01',
     readTime: '3 min read',
     image: '/images/service-family-office.jpg',
-  },
-  {
-    id: 7,
-    title: 'Emerging Defense Technology Sector Analysis',
-    description:
-      'An in-depth look at the emerging drone and autonomous systems industry, examining Ondas, Red Cat Holdings, and Unusual Machines.',
-    category: 'Market Commentary',
-    date: '2026-07-15',
-    readTime: '10 min read',
-    image: '/images/service-stock-research.jpg',
-    fileUrl: '/Emerging Defense Technology Sector Analysis.pdf',
-  },
-  {
-    id: 8,
-    title: 'High-Growth Stocks in Emerging Industries',
-    description:
-      'A survey of high-growth public companies and ETFs across eVTOL, quantum computing, space technology, and biotech.',
-    category: 'Market Commentary',
-    date: '2025-09-11',
-    readTime: '8 min read',
-    image: '/images/service-market-research.jpg',
-    fileUrl: '/High-Growth Stocks in Emerging Industries.pdf',
   },
 ];
