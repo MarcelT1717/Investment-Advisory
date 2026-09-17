@@ -8,7 +8,7 @@ const ConsultationModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('idle'); // idle, error, success
+  const [status, setStatus] = useState('idle'); // idle, loading, error, success
   const [errorMessage, setErrorMessage] = useState('');
 
   // Close on escape key
@@ -28,7 +28,7 @@ const ConsultationModal = ({ isOpen, onClose }) => {
 
   const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name.trim()) {
@@ -42,12 +42,25 @@ const ConsultationModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    const subject = encodeURIComponent(`Consultation Request from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone || '(not provided)'}\n\nMessage:\n${message || '(none provided)'}`
-    );
-    window.location.href = `mailto:${ADVISOR_EMAIL}?subject=${subject}&body=${body}`;
-    setStatus('success');
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus('success');
+      } else {
+        setErrorMessage(data.error || 'Could not send that right now. Please try again.');
+        setStatus('error');
+      }
+    } catch {
+      setErrorMessage('Could not send that right now. Please try again.');
+      setStatus('error');
+    }
   };
 
   const handleClose = () => {
@@ -79,10 +92,9 @@ const ConsultationModal = ({ isOpen, onClose }) => {
         {status === 'success' ? (
           <div className="subscribe-modal-success" data-testid="consultation-success">
             <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Almost There</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Message Sent</h3>
             <p className="text-gray-600">
-              Your email client should be opening with your request pre-filled. If it didn't,
-              email me directly at{' '}
+              Thanks for reaching out — I'll follow up soon. If it's urgent, email me directly at{' '}
               <a href={`mailto:${ADVISOR_EMAIL}`} className="text-accent-primary hover:underline">
                 {ADVISOR_EMAIL}
               </a>
@@ -162,9 +174,10 @@ const ConsultationModal = ({ isOpen, onClose }) => {
                 type="submit"
                 className="subscribe-modal-button"
                 data-testid="consultation-submit-button"
+                disabled={status === 'loading'}
               >
                 <CalendarCheck className="w-5 h-5" />
-                Request a Consultation
+                {status === 'loading' ? 'Sending…' : 'Request a Consultation'}
               </button>
             </form>
 
