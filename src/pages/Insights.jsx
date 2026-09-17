@@ -4,8 +4,13 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { insights } from '../lib/insightsData';
 import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 import BlogCarousel from '../components/BlogCarousel';
+import { useGsapStagger } from '../hooks/useGsapStagger';
 
 const Insights = () => {
+  const indicatorsRef = useGsapStagger('.firm-copy, .about-intro-photo');
+  const candlestickRef = useGsapStagger('.firm-copy, .about-intro-photo');
+  const patternsRef = useGsapStagger('.firm-copy, .about-intro-photo');
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -44,7 +49,7 @@ const Insights = () => {
           white/gray bands and mirror the photo side each time. */}
       <section className="firm-section">
         <div className="container">
-          <div className="firm-grid">
+          <div className="firm-grid" ref={indicatorsRef}>
             <div className="firm-copy">
               <div className="about-intro-eyebrow">
                 <Sparkles className="w-4 h-4" />
@@ -77,7 +82,7 @@ const Insights = () => {
 
       <section className="team-section">
         <div className="container">
-          <div className="firm-grid team-grid">
+          <div className="firm-grid team-grid" ref={candlestickRef}>
             <div className="about-intro-photo firm-photo">
               <img
                 src="/images/bullish_engulfing_candle.png"
@@ -110,7 +115,7 @@ const Insights = () => {
 
       <section className="firm-section">
         <div className="container">
-          <div className="firm-grid">
+          <div className="firm-grid" ref={patternsRef}>
             <div className="firm-copy">
               <div className="about-intro-eyebrow">
                 <Sparkles className="w-4 h-4" />

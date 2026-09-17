@@ -4308,8 +4308,8 @@ section {
 }
 
 .subscribe-modal-icon {
-  width: 64px;
-  height: 64px;
+  width: 96px;
+  height: 56px;
   background: linear-gradient(135deg, var(--brand-gold) 0%, var(--accent-hover) 100%);
   border-radius: 16px;
   display: flex;

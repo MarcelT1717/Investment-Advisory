@@ -3,6 +3,17 @@
 // to make its card open that file in a new tab instead of doing nothing.
 export const insights = [
   {
+    id: 9,
+    title: 'Reading the Candles',
+    description:
+      'An introduction to candlestick charting — anatomy, key reversal patterns like the doji family and bullish engulfing, and how to read what price is telling you.',
+    category: 'Market Commentary',
+    date: '2026-09-17',
+    readTime: '8 min read',
+    image: '/images/bullish_engulfing_candle.png',
+    fileUrl: '/candlesticks_article.pdf',
+  },
+  {
     id: 7,
     title: 'Emerging Defense Technology Sector Analysis',
     description:
