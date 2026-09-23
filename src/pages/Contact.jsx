@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, CalendarCheck, CheckCircle } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
+import { useConsultation } from '../context/ConsultationContext';
 
 const ADVISOR_EMAIL = 'consultation@standardthreewealth.com';
 
 const Contact = () => {
+  const { openConsultationModal } = useConsultation();
   const [contentRef, contentVisible] = useScrollReveal();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -113,8 +115,17 @@ const Contact = () => {
                 <CalendarCheck className="w-5 h-5" />
               </div>
               <h3 className="about-card-title">Book Directly</h3>
-              {/* TODO: replace with an embedded Calendly/Acuity scheduling widget once a booking link is set up */}
-              <p className="about-card-text">[Booking link coming soon]</p>
+              <p className="about-card-text">
+                <button
+                  type="button"
+                  onClick={openConsultationModal}
+                  className="text-accent-primary hover:underline"
+                  style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', font: 'inherit' }}
+                  data-testid="contact-book-directly-button"
+                >
+                  Pick a time on the calendar
+                </button>
+              </p>
             </div>
           </div>
 

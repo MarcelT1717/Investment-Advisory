@@ -10,20 +10,20 @@ import HeroParallaxPhoto from '../components/HeroParallaxPhoto';
 const leadership = [
   {
     name: 'Justin Tambunan',
-    title: '[Title / Role]',
-    bio: '[A short professional biography — background, focus area, and experience will go here.]',
+    title: 'Founder & Managing Partner',
+    bio: 'Justin co-founded Standard III and holds a B.S. in Finance and Real Estate. He began his career as an analyst at CBRE before turning his focus to markets, spending the past eight years developing algorithmic trading systems. He brings that quantitative, systems-driven background to Standard III\'s research and portfolio process.',
     photo: '/images/leader-justin-tambunan.png',
   },
   {
     name: 'Charles Frantz',
-    title: '[Title / Role]',
-    bio: '[A short professional biography — background, focus area, and experience will go here.]',
+    title: 'Chief Compliance Officer (CCO)',
+    bio: 'Charles oversees compliance and regulatory operations at Standard III. He holds a degree in Management Information Systems (MIS) and began his career in sales at CDW, where he built a strong foundation in client relationship management and operational discipline. He brings that detail-oriented, systems-minded approach to compliance, helping ensure the firm\'s processes and client communications meet a high regulatory standard.',
     photo: '/images/leader-charles-frantz.png',
   },
   {
     name: 'Marcel Tegos',
-    title: '[Title / Role]',
-    bio: '[A short professional biography — background, focus area, and experience will go here.]',
+    title: 'Founder & Managing Partner',
+    bio: 'Marcel co-founded Standard III and brings seven years of experience across trading, financial analysis, and corporate finance. A magna cum laude Finance graduate, he founded ITA, an investment trading association at Florida State University, before beginning his career in FP&A for an airline. He later worked as an analyst on the FAS team at Interactive Brokers (IBKR) and has spent recent years developing algorithmic trading strategies.',
     photo: '/images/leader-marcel-tegos.png',
   },
 ];
@@ -163,7 +163,7 @@ const About = () => {
                   investment research.
                 </p>
               </div>
-              <HeroParallaxPhoto image="/images/collage-chicago-sunset.jpg" />
+              <HeroParallaxPhoto image="/images/about-us-hero.jpeg" />
             </div>
           </div>
         </div>

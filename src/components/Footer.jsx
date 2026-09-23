@@ -51,7 +51,9 @@ const Footer = () => {
                 <Linkedin size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/share/18QjtWZ9Aj/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="footer-icon-link"
                 aria-label="Facebook"
               >
