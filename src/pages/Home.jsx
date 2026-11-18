@@ -179,18 +179,10 @@ const Home = () => {
               />
             </div>
 
-            {(() => {
-              const OfferIcon = services[activeOffer].icon;
-              return (
-                <div className="offer-detail">
-                  <div className="offer-detail-icon">
-                    <OfferIcon className="w-5 h-5" />
-                  </div>
-                  <h3 className="offer-detail-title">{services[activeOffer].title}</h3>
-                  <p className="offer-detail-desc">{services[activeOffer].desc}</p>
-                </div>
-              );
-            })()}
+            <div className="offer-detail">
+              <h3 className="offer-detail-title">{services[activeOffer].title}</h3>
+              <p className="offer-detail-desc">{services[activeOffer].desc}</p>
+            </div>
           </div>
         </div>
       </section>
